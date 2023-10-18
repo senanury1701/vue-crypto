@@ -1,5 +1,5 @@
 import { createStore } from 'vuex'
-import axios from '@axios'
+import axios from '/src/configs/axiosConfig'
 import type { UserData } from '@/@types/user'
 
 interface RootState {
@@ -7,7 +7,7 @@ interface RootState {
 }
 
 const state: RootState = {
-  user: null,
+  user: 'Deneme',
 }
 
 const mutations = {
@@ -21,13 +21,11 @@ const actions = {
   async loginUser({ commit }) {
     const token = localStorage.getItem('accessToken')
     try {
-      const response = await axios.post('user/me/', {
+      const response = await axios.get('user/me/', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
-
-      console.log('Istek yanıtı:', response)
 
       // İsteğin yanıtı boş değilse "data" özelliğini kullanarak kullanıcıyı ayarla
       if (response && response.data)
@@ -43,7 +41,6 @@ const store = createStore({
   state,
   mutations,
   actions,
-
 })
 
 export default store

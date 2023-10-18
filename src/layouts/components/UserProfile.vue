@@ -5,7 +5,7 @@ import store from '@/store/userState'
 const userData = ref()
 
 const logout = () => {
-  localStorage.removeItem('token')
+  localStorage.removeItem('accessToken')
 }
 
 onMounted(async () => {
@@ -60,14 +60,14 @@ onMounted(async () => {
             </template>
 
             <VListItemTitle class="font-weight-semibold">
-              {{ userData?.name || "haha" }}
+              {{ userData?.name || "isimsiz" }} {{ userData?.lastname || ".." }}
             </VListItemTitle>
           </VListItem>
 
           <VDivider class="my-2" />
 
           <!-- 👉 Profile -->
-          <VListItem to="UserProfil">
+          <VListItem to="profile">
             <template #prepend>
               <VIcon
                 class="me-2"
@@ -112,7 +112,7 @@ onMounted(async () => {
 
           <!-- 👉 Logout -->
           <VListItem
-            to="/login"
+            to="login"
             @click="logout"
           >
             <template #prepend>

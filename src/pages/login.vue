@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { VForm } from 'vuetify/components/VForm'
+
 import { useGenerateImageVariant } from '@/@core/composable/useGenerateImageVariant'
 import authV2LoginIllustrationBorderedDark from '@images/pages/auth-v2-login-illustration-bordered-dark.png'
 import authV2LoginIllustrationBorderedLight from '@images/pages/auth-v2-login-illustration-bordered-light.png'
@@ -10,7 +11,7 @@ import authV2LoginMaskLight from '@images/pages/auth-v2-login-mask-light.png'
 import { VNodeRenderer } from '@layouts/components/VNodeRenderer'
 import { themeConfig } from '@themeConfig'
 import { emailValidator, requiredValidator } from '@validators'
-import axiosIns from '@/plugins/axios'
+import axiosConfig from '@/configs/axiosConfig'
 
 const refVForm = ref<VForm>()
 const mail = ref('')
@@ -35,7 +36,7 @@ const login = () => {
     password: password.value,
   }
 
-  axiosIns.post('user/login/', data)
+  axiosConfig.post('user/login/', data)
     .then(r => {
       localStorage.setItem('accessToken', r.data.token)
 

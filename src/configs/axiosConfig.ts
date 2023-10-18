@@ -2,13 +2,13 @@
 import axios from 'axios'
 import router from '@/router'
 
-const axiosIns = axios.create({
+const axiosConfig = axios.create({
   baseURL: 'http://crypto.yahyabatulu.com:571/api/',
 
 })
 
 // ℹ️ Add request interceptor to send the authorization header on each subsequent request after login
-axiosIns.interceptors.request.use(config => {
+axiosConfig.interceptors.request.use(config => {
   // Retrieve token from localStorage
   const token = localStorage.getItem('accessToken')
 
@@ -19,7 +19,7 @@ axiosIns.interceptors.request.use(config => {
 
     // Set authorization header
     // ℹ️ JSON.parse will convert token to string
-    config.headers.Authorization = token ? `Bearer ${JSON.parse(token)}` : ''
+    config.headers.Authorization = token ? `Bearer ${token}` : ''
   }
 
   // Return modified config
@@ -27,7 +27,7 @@ axiosIns.interceptors.request.use(config => {
 })
 
 // ℹ️ Add response interceptor to handle 401 response
-axiosIns.interceptors.response.use(response => {
+axiosConfig.interceptors.response.use(response => {
   return response
 }, error => {
   // Handle error
@@ -47,4 +47,4 @@ axiosIns.interceptors.response.use(response => {
   }
 })
 
-export default axiosIns
+export default axiosConfig

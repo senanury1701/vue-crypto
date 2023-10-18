@@ -6,15 +6,11 @@ export default [
     to: { name: 'home' },
     icon: { icon: 'mdi-home-outline' },
   },
-  {
-    title: 'Second page',
-    to: { name: 'second-page' },
-    icon: { icon: 'mdi-file-document-outline' },
-  },
+
   {
     title: 'User',
     icon: { icon: 'mdi-account-outline' },
-    to: { name: 'user' },
+    to: { name: 'profile' },
   },
   {
     title: 'Wallet',

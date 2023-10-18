@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { VForm } from 'vuetify/components/VForm'
 
-import axiosInc from '@/plugins/axios'
+import axiosInc from '@/configs/axiosConfig'
 import { useGenerateImageVariant } from '@/@core/composable/useGenerateImageVariant'
 import { VNodeRenderer } from '@layouts/components/VNodeRenderer'
 import { themeConfig } from '@themeConfig'
