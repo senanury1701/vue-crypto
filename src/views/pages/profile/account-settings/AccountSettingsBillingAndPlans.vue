@@ -14,8 +14,6 @@ interface CardDetails {
 }
 const selectedPaymentMethod = ref('credit-debit-atm-card')
 
-const isPricingPlanDialogVisible = ref(false)
-const isConfirmDialogVisible = ref(false)
 const isCardEditDialogVisible = ref(false)
 const isCardDetailSaveBilling = ref(false)
 
