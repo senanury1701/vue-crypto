@@ -17,7 +17,7 @@ const { value: newPassword, errorMessage: newPasswordError } = useField('newPass
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*[\]{}()?"\\,><':;|_~`=+-])[a-zA-Z\d!@#$%^&*[\]{}()?"\\,><':;|_~`=+-]{8,99}$/,
   ' 1 Uppercase, 1 Lowercase, 1 Special Character, and 1 Number'))
 
-const { value: confirmPassword, errorMessage: confirmPasswordError } = useField('confirmPassword', yup.string().required().oneOf([yup.ref('newPassword')], 'Passwords must'))
+const { value: confirmPassword, errorMessage: confirmPasswordError } = useField('confirmPassword', yup.string().required().oneOf([('newPassword')], 'Passwords must'))
 
 const onSubmit = () => {
   handleSubmit(values => {

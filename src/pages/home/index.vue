@@ -51,5 +51,14 @@ onMounted(() => {
 </script>
 
 <template>
-  <CryptoArrangement :exchange-rates="exchangeRates" />
+  <VRow>
+    <VCol>
+      <VCard>
+        <CryptoArrangement
+          :exchange-rates="exchangeRates"
+          class="mx-5 my-5"
+        />
+      </VCard>
+    </VCol>
+  </VRow>
 </template>
