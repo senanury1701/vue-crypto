@@ -11,13 +11,20 @@ const { handleSubmit } = useForm()
 
 const { value: currentPassword, errorMessage: currentPasswordError } = useField('currentPassword', yup.string().required())
 
-// eslint-disable-next-line @typescript-eslint/no-shadow
-const { value: newPassword, errorMessage: newPasswordError } = useField('newPassword', yup.string().required().min(8).when('currentPassword', (currentPassword, field) =>
-  currentPassword ? field.required() : field).matches(
-  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*[\]{}()?"\\,><':;|_~`=+-])[a-zA-Z\d!@#$%^&*[\]{}()?"\\,><':;|_~`=+-]{8,99}$/,
-  ' 1 Uppercase, 1 Lowercase, 1 Special Character, and 1 Number'))
+const { value: newPassword, errorMessage: newPasswordError } = useField(
+  'newPassword',
+  yup.string().required().min(8).when('currentPassword', (currentPassword, field) => {
+    if (currentPassword)
+      return field.required().notOneOf([yup.ref('currentPassword')], 'New password must not be the same as the current password')
 
-const { value: confirmPassword, errorMessage: confirmPasswordError } = useField('confirmPassword', yup.string().required().oneOf([('newPassword')], 'Passwords must'))
+    return field
+  }).matches(
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*[\]{}()?"\\,><':;|_~`=+-])[a-zA-Z\d!@#$%^&*[\]{}()?"\\,><':;|_~`=+-]{8,99}$/,
+    '1 Uppercase, 1 Lowercase, 1 Special Character, and 1 Number',
+  ),
+)
+
+const { value: confirmPassword, errorMessage: confirmPasswordError } = useField('confirmPassword', yup.string().required().oneOf([ref('newPassword')], 'Passwords does not match'))
 
 const onSubmit = () => {
   handleSubmit(values => {

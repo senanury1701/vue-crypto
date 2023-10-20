@@ -1,7 +1,6 @@
 <script setup lang="ts">
-// eslint-disable-next-line regex/invalid
-import axios from 'axios'
 import { defineProps, inject, ref } from 'vue'
+import axios from '@/configs/axiosConfig'
 import type { ballanceData } from '@/views/demos/components/tabs/BuySellTabs.vue'
 
 const props = defineProps({
@@ -36,10 +35,10 @@ const equivalentAmount = computed(() => {
   return getData.value.amount = parseFloat(amount.value) * exchangeRates.value.rates[selectedCrypto.value]
 })
 
+const search = ref('')
+
 const buyCrypto = () => {
-  const getUrl = 'http://crypto.yahyabatulu.com:571/api/user/wallet/buy/'
-  const token = localStorage.getItem('token')
-  const depositUrl = 'http://crypto.yahyabatulu.com:571/api/user/wallet/deposit/'
+  const token = localStorage.getItem('accessToken')
 
   const requestData = {
     amount: getData.value.amount,
@@ -51,7 +50,7 @@ const buyCrypto = () => {
   }
 
   if (selectedCrypto.value === 'USD') {
-    axios.post(depositUrl, depositData, {
+    axios.post('user/wallet/deposit/', depositData, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -65,7 +64,7 @@ const buyCrypto = () => {
       })
   }
   else {
-    axios.post(getUrl, requestData, {
+    axios.post('user/wallet/buy/', requestData, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -79,6 +78,14 @@ const buyCrypto = () => {
       })
   }
 }
+
+const filter = computed(() => {
+  const searchTerm = search.value.toLowerCase()
+
+  return Object.keys(exchangeRates.value.rates).filter(currency =>
+    currency.toLowerCase().includes(searchTerm),
+  )
+})
 </script>
 
 <template>
@@ -127,9 +134,7 @@ const buyCrypto = () => {
               <VCol cols="8">
                 <VTextField
                   v-model="equivalentAmount"
-                  label="Equivalent Amount"
-                  prefix="$"
-                  type="number"
+                  disabled
                 />
               </VCol>
               <VCol
@@ -150,34 +155,37 @@ const buyCrypto = () => {
 
                   <!-- Dialog Content -->
                   <VCard>
-                    <DialogCloseBtn
-                      variant="text"
-                      size="small"
-                      @click="isDialogVisible = false"
-                    />
-
                     <VCardItem class="pb-3">
-                      <VCardTitle>select Crypto</VCardTitle>
-                    </VCardItem>
+                      <VTextField
+                        v-model="search"
+                        density="compact"
+                        label="Search"
+                        append-inner-icon="mdi-magnify"
+                        single-line
+                        hide-details
+                        dense
+                        outlined
+                      />
 
-                    <VDivider />
-                    <VCardText style="block-size: 300px;">
-                      <VRadioGroup
-                        v-model="selectedCrypto"
-                        :inline="false"
-                      >
-                        <VRadio
-                          v-for="(rate, currency) in exchangeRates.rates"
-                          :key="currency"
-                          :label="`${currency}`"
-                          :value="currency"
-                          color="primary"
-                          @click="isDialogVisible = false"
-                        />
-                      </VRadioGroup>
-                    </VCardText>
+                      <VDivider />
+                      <VCardText style="block-size: 300px;">
+                        <VRadioGroup
+                          v-model="selectedCrypto"
+                          :inline="false"
+                        >
+                          <VRadio
+                            v-for="(currency, index) in filter"
+                            :key="index"
+                            :label="currency"
+                            :value="currency"
+                            color="primary"
+                            @click="isDialogVisible = false"
+                          />
+                        </VRadioGroup>
+                      </VCardText>
 
-                    <VDivider />
+                      <VDivider />
+                    </vcarditem>
                   </VCard>
                 </VDialog>
               </VCol>

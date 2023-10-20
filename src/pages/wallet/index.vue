@@ -1,15 +1,13 @@
 <script setup lang="ts">
-// eslint-disable-next-line regex/invalid
-import axios from 'axios'
 import { provide, ref } from 'vue'
+import axios from '@/configs/axiosConfig'
 import BuySellTabs from '@/views/pages/wallet/tabs/BuySellTabs.vue'
 
-const url = 'http://crypto.yahyabatulu.com:571/api/user/wallet/balance/'
-const token = localStorage.getItem('token')
+const token = localStorage.getItem('accessToken')
 const userBallance = ref<any>()
 
 const updateBalance = () => {
-  axios(url, {
+  axios('user/wallet/balance/', {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${token}`,
@@ -42,7 +40,7 @@ onMounted(() => {
             <h1>Wallet</h1>
           </VTitle>
           <VText>
-            <h2>${{ userBallance?.USD.toFixed(3) || "0" }}</h2>
+            <h2>${{ userBallance?.USD.toFixed(2) || "0" }}</h2>
           </VText>
         </VCard>
       </VCol>

@@ -1,7 +1,6 @@
 <script setup lang="ts">
-// eslint-disable-next-line regex/invalid
-import axios from 'axios'
 import { inject, ref } from 'vue'
+import axios from '@/configs/axiosConfig'
 import type { ballanceData } from '@/views/pages/wallet/tabs/BuySellTabs.vue'
 
 const props = defineProps({
@@ -12,11 +11,29 @@ const props = defineProps({
 
 })
 
+const items = ['USD', 'EURO', 'TL', 'STERLIN']
+const selectedItem = ref('Select')
+
 const { userBallance, updateBalance } = inject<any>('userBallance')
 const isDialogVisible = ref(false)
 const amount = ref('')
 const selectedCrypto = ref<string | null>(null)
 const exchangeRates = ref(props.exchangeRates)
+
+const ballance = ref(Object.fromEntries(
+  Object.entries(
+    userBallance.value,
+  ).filter(
+    (item: any) => item[1] !== 0,
+  ),
+))
+
+watch(userBallance, newBalance => {
+  ballance.value = Object.fromEntries(
+    Object.entries(newBalance).filter(item => item[1] !== 0),
+  )
+})
+console.log(ballance.value)
 
 const getData = {
   amounts: amount,
@@ -31,21 +48,23 @@ const equivalentAmount = computed(() => {
 })
 
 const sellCrypto = () => {
-  const token = localStorage.getItem('token')
-  const url = 'http://crypto.yahyabatulu.com:571/api/user/wallet/sell/'
+  const token = localStorage.getItem('accessToken')
 
   const requestData = {
     amount: parseFloat(getData.amounts.value),
     currency: selectedCrypto.value,
   }
 
-  axios.post(url, requestData, {
+  axios.post('user/wallet/sell/', requestData, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   })
     .then(response => {
       console.log('SEl işlemi başarılı:', response.data)
+      if (response.data.status === false)
+        alert('bakiye yetersiz')
+
       updateBalance()
     })
     .catch(error => {
@@ -56,37 +75,63 @@ const sellCrypto = () => {
 
 <template>
   <VRow>
-    <VCol>
+    <VCol
+      md="6"
+      cols="12"
+    >
       <VCard class="mb-2 px-5 py-5 ">
         <Vlist>
-          <h2>Cuzdandakiler</h2><div class="scrollable-list">
-            <div class="scrollable-list">
-              <VListItem
-                v-for="(item, index) in userBallance"
-                :key="index"
-              >
-                <h4 v-if="item !== 0">
-                  {{ index }} : {{ item }}
-                </h4>
-              </VListItem>
-            </div>
+          <h2 class="text-center">
+            Cuzdandakiler
+          </h2>
+          <div class="scrollable-list">
+            <VTable
+              height="250"
+              fixed-header
+            >
+              <thead>
+                <tr>
+                  <th class="text-uppercase">
+                    Crypto Name
+                  </th>
+                  <th class="text-uppercase">
+                    Crypto Value
+                  </th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr
+                  v-for="(item, index) in ballance"
+                  :key="index"
+                >
+                  <td>
+                    {{ index }}
+                  </td>
+                  <td>
+                    {{ item }}
+                  </td>
+                </tr>
+              </tbody>
+            </VTable>
           </div>
         </Vlist>
       </VCard>
     </VCol>
     <VCol
       cols="12"
-      lg="6"
+      md="6"
     >
-      <VCard>
+      <VCard class="py-2">
         <VCol
+          cols="12"
           align="center"
           class="d-flex"
         >
           <VCol cols="8">
             <VTextField
               v-model="amount"
-              label="Amount"
+              label="ne kadar satcan"
               type="number"
               placeholder="0.05"
             />
@@ -103,6 +148,7 @@ const sellCrypto = () => {
               <!-- Dialog Activator -->
               <template #activator="{ on }">
                 <VBtn
+                  class="w-100"
                   v-bind="on"
                   @click="isDialogVisible = !isDialogVisible"
                 >
@@ -124,7 +170,7 @@ const sellCrypto = () => {
                     @click="isDialogVisible = false"
                   >
                     <VRadio
-                      v-for="(value, key) in userBallance"
+                      v-for="(value, key) in ballance"
                       :key="key"
                       :label="key"
                       :value="key"
@@ -138,21 +184,32 @@ const sellCrypto = () => {
             </VDialog>
           </VCol>
         </VCol>
+
         <VCol
           cols="12"
-          class="my-5 "
+          align="center"
+          class="d-flex"
         >
-          <VTextField
-            v-model="equivalentAmount"
-            label="Equivalent Amount"
-            prefix="$"
-            type="number"
-          />
+          <VCol cols="8">
+            <VTextField
+              v-model="equivalentAmount"
+              :label="`Bu kadar ${selectedItem} ediyor`"
+              prefix="$"
+              disabled
+            />
+          </VCol>
+
+          <VCol cols="4">
+            <VCombobox
+              v-model="selectedItem"
+              :items="items"
+            />
+          </VCol>
         </VCol>
 
-        <VCol class="my-5  ">
+        <VCol class="my-5  text-center">
           <VBtn
-            class="w-100"
+            class="w-75"
             @click="sellCrypto"
           >
             Sat

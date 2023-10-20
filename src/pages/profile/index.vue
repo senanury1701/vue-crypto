@@ -16,6 +16,7 @@ onMounted(async () => {
     <div class="mb-5">
       <UserProfileHeader
         v-if="data"
+        z
         :data="data"
       />
     </div>
