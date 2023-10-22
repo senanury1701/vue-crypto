@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { VDataTable } from 'vuetify/labs/VDataTable'
 import { useStore } from 'vuex'
+import BuyBtn from './BuyBtn.vue'
 
 const props = defineProps({
   exchangeRates: Object,
@@ -8,9 +9,10 @@ const props = defineProps({
 
 const store = useStore()
 const favoriteCryptoList = computed(() => store.state.favoriteCryptos)
-
+const selectedCrypto = ref()
 const exchangeRate = ref<any>(props.exchangeRates)
 const search = ref('')
+const isDialogVisible = ref(false)
 
 // headers
 const headers = [
@@ -37,9 +39,9 @@ const toggleFavorite = item => {
     store.dispatch('removeCrypto', item) // Favoriyi kaldırmak için Vuex action'ını çağırın
 }
 
-const handleButtonClick = () => {
-  // Burada butona tıklanınca yapılacak işlemleri tanımlayabilirsiniz
-  // Örneğin, crypto'nun detay sayfasına yönlendirebilirsiniz.
+const handleButtonClick = (crypto: string) => {
+  selectedCrypto.value = crypto
+  console.log(selectedCrypto.value)
 }
 </script>
 
@@ -99,12 +101,24 @@ const handleButtonClick = () => {
 
       <!-- Delete -->
       <template #item.button="{ item }">
-        <VBtn
-          color="primary"
-          @click="handleButtonClick"
+        <VDialog
+          v-model="isDialogVisible"
+          max-width="600"
         >
-          Buy
-        </VBtn>
+          <template #activator="{ props }">
+            <VBtn
+              v-bind="props"
+              color="primary"
+              @click="handleButtonClick(item)"
+            >
+              Buy
+            </VBtn>
+          </template>
+          <BuyBtn
+            v-model:is-dialog-visible="isDialogVisible"
+            :selected-crypto="selectedCrypto"
+          />
+        </VDialog>
       </template>
     </VDataTable>
 

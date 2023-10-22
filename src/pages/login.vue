@@ -11,7 +11,7 @@ import authV2LoginMaskLight from '@images/pages/auth-v2-login-mask-light.png'
 import { VNodeRenderer } from '@layouts/components/VNodeRenderer'
 import { themeConfig } from '@themeConfig'
 import { emailValidator, requiredValidator } from '@validators'
-import axiosConfig from '@/configs/axiosConfig'
+import axios from '@/configs/axiosConfig'
 
 const refVForm = ref<VForm>()
 const mail = ref('')
@@ -36,7 +36,7 @@ const login = () => {
     password: password.value,
   }
 
-  axiosConfig.post('user/login/', data)
+  axios.post('user/login/', data)
     .then(r => {
       localStorage.setItem('accessToken', r.data.token)
 

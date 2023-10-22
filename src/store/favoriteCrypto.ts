@@ -2,14 +2,15 @@ import { createStore } from 'vuex'
 
 export default createStore({
   state: {
-    favoriteCryptos: [],
+    favoriteCryptos: [], // Corrected the state property name
   },
   mutations: {
     addFavoriteCrypto(state, crypto) {
-      state.favoriteCryptos.push(crypto)
+      if (!state.favoriteCryptos.includes(crypto))
+        state.favoriteCryptos.push(crypto)
     },
     removeFavoriteCrypto(state, crypto) {
-      const index = state.favoriteCryptos.findIndex(favorite => favorite.crypto === crypto.crypto)
+      const index = state.favoriteCryptos.indexOf(crypto)
       if (index !== -1)
         state.favoriteCryptos.splice(index, 1)
     },
