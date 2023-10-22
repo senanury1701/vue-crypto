@@ -1,15 +1,20 @@
 <script setup lang="ts">
 import { VDataTable } from 'vuetify/labs/VDataTable'
+import { useStore } from 'vuex'
 
 const props = defineProps({
   exchangeRates: Object,
 })
+
+const store = useStore()
+const favoriteCryptoList = computed(() => store.state.favoriteCryptos)
 
 const exchangeRate = ref<any>(props.exchangeRates)
 const search = ref('')
 
 // headers
 const headers = [
+  { title: 'favori', key: 'favori', sortable: false },
   { title: 'Kripto Para', key: 'crypto' },
   { title: 'Değer', key: 'rate' },
   { title: 'Aksiyon', key: 'button', sortable: false },
@@ -22,6 +27,15 @@ const cryptoRates = computed(() => {
 
   return list
 })
+
+const toggleFavorite = item => {
+  item.isFavorite = !item.isFavorite
+  if (item.isFavorite)
+    store.dispatch('addCrypto', item) // Favori eklemek için Vuex action'ını çağırın
+
+  else
+    store.dispatch('removeCrypto', item) // Favoriyi kaldırmak için Vuex action'ını çağırın
+}
 
 const handleButtonClick = () => {
   // Burada butona tıklanınca yapılacak işlemleri tanımlayabilirsiniz
@@ -59,6 +73,14 @@ const handleButtonClick = () => {
       :search="search"
       :items-per-page="5"
     >
+      <template #item.favori="{ item }">
+        <IconBtn @click="toggleFavorite(item)">
+          <VIcon
+            :icon="item.isFavorite ? 'mdi-star' : 'mdi-star-outline'"
+            :color="item.isFavorite ? 'warning' : ''"
+          />
+        </IconBtn>
+      </template>
       <!-- product -->
       <template #item.name="{ item }">
         <div class="d-flex align-center">
@@ -85,5 +107,22 @@ const handleButtonClick = () => {
         </VBtn>
       </template>
     </VDataTable>
+
+    <VCol>
+      <VCard>
+        <VCardText>
+          <h3>Favori Kripto Paralar</h3>
+          <ul>
+            <li
+              v-for="crypto in favoriteCryptoList"
+              :key="crypto"
+            >
+              {{ crypto.value.crypto }} :
+              {{ crypto.value.rate }}
+            </li>
+          </ul>
+        </VCardText>
+      </VCard>
+    </VCol>
   </div>
 </template>
