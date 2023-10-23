@@ -1,14 +1,15 @@
 <script setup lang="ts">
 import { VDataTable } from 'vuetify/labs/VDataTable'
-import { useStore } from 'vuex'
+
+// import { useStore } from 'vuex'
 import BuyBtn from './BuyBtn.vue'
 
 const props = defineProps({
   exchangeRates: Object,
 })
 
-const store = useStore()
-const favoriteCryptoList = computed(() => store.state.favoriteCryptos)
+/* const store = useStore()
+const favoriteCryptoList = computed(() => store.state.favoriteCryptos)  */
 const selectedCrypto = ref()
 const exchangeRate = ref<any>(props.exchangeRates)
 const search = ref('')
@@ -16,7 +17,7 @@ const isDialogVisible = ref(false)
 
 // headers
 const headers = [
-  { title: 'favori', key: 'favori', sortable: false },
+  // { title: 'favori', key: 'favori', sortable: false },
   { title: 'Kripto Para', key: 'crypto' },
   { title: 'Değer', key: 'rate' },
   { title: 'Aksiyon', key: 'button', sortable: false },
@@ -30,14 +31,14 @@ const cryptoRates = computed(() => {
   return list
 })
 
-const toggleFavorite = item => {
+/* const toggleFavorite = item => {
   item.isFavorite = !item.isFavorite
   if (item.isFavorite)
     store.dispatch('addCrypto', item) // Favori eklemek için Vuex action'ını çağırın
 
   else
     store.dispatch('removeCrypto', item) // Favoriyi kaldırmak için Vuex action'ını çağırın
-}
+} */
 
 const handleButtonClick = (crypto: string) => {
   selectedCrypto.value = crypto
@@ -75,14 +76,16 @@ const handleButtonClick = (crypto: string) => {
       :search="search"
       :items-per-page="5"
     >
-      <template #item.favori="{ item }">
+      <!--
+        <template #item.favori="{ item }">
         <IconBtn @click="toggleFavorite(item)">
-          <VIcon
-            :icon="item.isFavorite ? 'mdi-star' : 'mdi-star-outline'"
-            :color="item.isFavorite ? 'warning' : ''"
-          />
+        <VIcon
+        :icon="item.isFavorite ? 'mdi-star' : 'mdi-star-outline'"
+        :color="item.isFavorite ? 'warning' : ''"
+        />
         </IconBtn>
-      </template>
+        </template>
+      -->
       <!-- product -->
       <template #item.name="{ item }">
         <div class="d-flex align-center">
@@ -122,21 +125,23 @@ const handleButtonClick = (crypto: string) => {
       </template>
     </VDataTable>
 
-    <VCol>
+    <!--
+      <VCol>
       <VCard>
-        <VCardText>
-          <h3>Favori Kripto Paralar</h3>
-          <ul>
-            <li
-              v-for="crypto in favoriteCryptoList"
-              :key="crypto"
-            >
-              {{ crypto.value.crypto }} :
-              {{ crypto.value.rate }}
-            </li>
-          </ul>
-        </VCardText>
+      <VCardText>
+      <h3>Favori Kripto Paralar</h3>
+      <ul>
+      <li
+      v-for="crypto in favoriteCryptoList"
+      :key="crypto"
+      >
+      {{ crypto.value.crypto }} :
+      {{ crypto.value.rate }}
+      </li>
+      </ul>
+      </VCardText>
       </VCard>
-    </VCol>
+      </VCol>
+    -->
   </div>
 </template>

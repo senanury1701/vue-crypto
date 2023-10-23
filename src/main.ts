@@ -11,6 +11,7 @@ import { createPinia } from 'pinia'
 import { createApp } from 'vue'
 import storeUser from './store/userState'
 import storeFavorite from './store/favoriteCrypto'
+import userData from './store/userData'
 
 loadFonts()
 
@@ -24,6 +25,7 @@ app.use(router)
 app.use(layoutsPlugin)
 app.use(storeUser)
 app.use(storeFavorite)
+app.use(userData)
 
 // Mount vue app
 app.mount('#app')

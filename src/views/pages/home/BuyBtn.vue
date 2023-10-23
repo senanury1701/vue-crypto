@@ -78,11 +78,13 @@ const buyCrypto = () => {
 </script>
 
 <template>
-  <DialogCloseBtn
+  <!--
+    <DialogCloseBtn
     variant="text"
     size="small"
     @click="isDialogVisible = false"
-  />
+    />
+  -->
   <!-- Dialog Content -->
   <VCard title="Buy Crypto">
     <VRow class="my-4 mx-1">

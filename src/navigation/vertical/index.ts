@@ -17,5 +17,10 @@ export default [
     icon: { icon: 'mdi-wallet-outline' },
     to: { name: 'wallet' },
   },
+  {
+    title: 'Users',
+    icon: { icon: 'mdi-account-box' },
+    to: { name: 'userTable' },
+  },
 
 ] as VerticalNavItems
