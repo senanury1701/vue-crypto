@@ -1,13 +1,38 @@
 <script setup lang="ts">
 import { VDataTable } from 'vuetify/labs/VDataTable'
 import { useStore } from 'vuex'
+import Swal from 'sweetalert2'
+import AddNewUserDrawer from './DataPanel.vue'
 
 const store = useStore()
-const users = computed(() => store.state.users)
+const usersData = computed(() => store.state.users)
 const search = ref('')
-const usersData = ref(users.value)
+const isAddNewUserDrawerVisible = ref(false)
 
-console.log(usersData)
+const toggleStatus = (user: any) => {
+  store.dispatch('toggleUserStatus', user)
+}
+
+const deleteItem = (userId: any) => {
+  store.dispatch('deleteUserData', userId)
+}
+
+const editItem = (user: any) => {
+  store.dispatch('updateUser', user)
+}
+
+const swal = (userId: number) => Swal.fire({
+  title: 'Are You Sure?',
+  text: 'Bu işlemi geri alamayacaksınız!',
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Yes, delete!',
+}).then(result => {
+  if (result.isConfirmed)
+    deleteItem(userId)
+})
 
 // headers
 const headers = [
@@ -18,6 +43,8 @@ const headers = [
   { title: 'Age', key: 'age' },
   { title: 'Gender', key: 'gender' },
   { title: 'Salary', key: 'salary' },
+  { title: 'Status', key: 'status' },
+  { title: 'Actions', key: 'actions' },
 ]
 </script>
 
@@ -72,67 +99,83 @@ const headers = [
         :items="usersData"
         :search="search"
         :items-per-page="5"
+        show-select
       >
         <!-- name -->
-        <template #item.value.name="{ item }">
+        <template #item.name="{ item }">
           <div class="d-flex align-center">
-            <div class="d-flex flex-column ms-3">
-              <span class="text-xs">{{ item.name }}</span>
-            </div>
+            <span class="text-no-wrap font-weight-medium text-high-emphasis ">{{ item.raw.name }}</span>
           </div>
         </template>
 
         <!-- position -->
-        <template #item.value.position="{ item }">
+        <template #item.position="{ item }">
           <div class="d-flex align-center">
-            <span class="ms-1 text-no-wrap">{{ item.position }}</span>
+            <span class="text-no-wrap font-weight-medium text-high-emphasis ">{{ item.raw.position }}</span>
           </div>
         </template>
 
         <!-- office -->
-        <template #item.value.office="{ item }">
+        <template #item.office="{ item }">
           <div class="d-flex align-center">
-            <span class="text-no-wrap font-weight-medium text-high-emphasis ms-2">{{ item.office }}</span>
+            <span class="text-no-wrap font-weight-medium text-high-emphasis ">{{ item.raw.office }}</span>
           </div>
         </template>
 
         <!-- startDate -->
-        <template #item.value.startDate="{ item }">
+        <template #item.startDate="{ item }">
           <div class="d-flex align-center">
-            <span class="text-no-wrap font-weight-medium text-high-emphasis ms-2">{{ item.startDate }}</span>
+            <span class="text-no-wrap font-weight-medium text-high-emphasis ">{{ item.raw.startDate }}</span>
           </div>
         </template>
 
         <!-- age -->
-        <template #item.value.age="{ item }">
+        <template #item.age="{ item }">
           <div class="d-flex align-center">
-            <span class="text-no-wrap font-weight-medium text-high-emphasis ms-2">{{ item.age }}</span>
+            <span class="text-no-wrap font-weight-medium text-high-emphasis ">{{ item.raw.age }}</span>
           </div>
         </template>
 
         <!-- gender -->
-        <template #item.value.gender="{ item }">
+        <template #item.gender="{ item }">
           <div class="d-flex align-center">
-            <span class="text-no-wrap font-weight-medium text-high-emphasis ms-2">{{ item.gender }}</span>
+            <span class="text-no-wrap font-weight-medium text-high-emphasis ">{{ item.raw.gender }}</span>
           </div>
         </template>
 
         <!-- salary -->
-        <template #item.value.salary="{ item }">
+        <template #item.salary="{ item }">
           <div class="d-flex align-center">
-            <span class="text-no-wrap font-weight-medium text-high-emphasis ms-2">{{ item.salary }}$</span>
+            <span class="text-no-wrap font-weight-medium text-high-emphasis ">{{ item.raw.salary }}$</span>
           </div>
         </template>
 
-        <!-- Delete -->
-        <!--
-          <template #item.delete="{ item }">
-          <IconBtn @click="deleteItem(item.raw.product.id)">
-          <VIcon icon="mdi-delete-outline" />
-          </IconBtn>
-          </template>
-        -->
+        <!-- status -->
+        <template #item.status="{ item }">
+          <div class="d-flex align-center">
+            <VSwitch
+              v-model="item.raw.status"
+              @change="toggleStatus(item.raw)"
+            />
+          </div>
+        </template>
+
+        <!-- Actions -->
+        <template #item.actions="{ item }">
+          <div class="d-flex gap-1">
+            <IconBtn @click="editItem(item.raw)">
+              <VIcon icon="mdi-pencil-outline" />
+            </IconBtn>
+            <IconBtn @click="swal(item.raw.id)">
+              <VIcon icon="mdi-delete-outline" />
+            </IconBtn>
+          </div>
+        </template>
       </VDataTable>
     </VCard>
+    <AddNewUserDrawer
+      v-model:isDrawerOpen="isAddNewUserDrawerVisible"
+      @user-data="addNewUser"
+    />
   </div>
 </template>

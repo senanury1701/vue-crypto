@@ -1,0 +1,31 @@
+export const offices = [
+  'New York',
+  'Los Angeles',
+  'San Francisco',
+  'Chicago',
+  'Boston',
+  'Seattle',
+  'Miami',
+  'Denver',
+  'Dallas',
+  'Houston',
+  'San Diego',
+  'Austin',
+  'Phoenix',
+  'Philadelphia',
+  'Atlanta',
+]
+
+export const positions = [
+  'Frontend Developer',
+  'Backend Developer',
+  'UI/UX Designer',
+  'Full Stack Developer',
+  'Data Scientist',
+  'DevOps Engineer',
+  'Product Manager',
+  'Software Engineer',
+  'QA Tester',
+  'Database Administrator',
+  'Data Analyst',
+]

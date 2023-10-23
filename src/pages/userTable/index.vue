@@ -4,6 +4,8 @@ import FilteredData from '@/views/pages/userTable/FilterdData.vue'
 </script>
 
 <template>
-  <FilteredData />
-  <DataTable />
+  <div>
+    <FilteredData />
+    <DataTable />
+  </div>
 </template>

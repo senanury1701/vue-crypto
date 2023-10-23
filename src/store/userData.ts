@@ -21,6 +21,7 @@ const users: User[] = [
     gender: 'Male',
     startDate: '2022-01-15',
     salary: 75000,
+    status: true,
   },
   {
     id: 2,
@@ -31,6 +32,7 @@ const users: User[] = [
     gender: 'Female',
     startDate: '2021-11-10',
     salary: 80000,
+    status: false,
   },
   {
     id: 3,
@@ -41,6 +43,7 @@ const users: User[] = [
     gender: 'Female',
     startDate: '2023-03-05',
     salary: 70000,
+    status: true,
   },
   {
     id: 4,
@@ -51,6 +54,7 @@ const users: User[] = [
     gender: 'Male',
     startDate: '2022-05-20',
     salary: 78000,
+    status: false,
   },
   {
     id: 5,
@@ -61,6 +65,7 @@ const users: User[] = [
     gender: 'Female',
     startDate: '2022-09-10',
     salary: 90000,
+    status: true,
   },
   {
     id: 6,
@@ -71,6 +76,7 @@ const users: User[] = [
     gender: 'Male',
     startDate: '2021-07-03',
     salary: 82000,
+    status: true,
   },
   {
     id: 7,
@@ -81,6 +87,7 @@ const users: User[] = [
     gender: 'Female',
     startDate: '2021-10-22',
     salary: 85000,
+    status: true,
   },
   {
     id: 8,
@@ -91,6 +98,7 @@ const users: User[] = [
     gender: 'Male',
     startDate: '2022-04-15',
     salary: 72000,
+    status: false,
   },
   {
     id: 9,
@@ -101,6 +109,7 @@ const users: User[] = [
     gender: 'Female',
     startDate: '2023-01-08',
     salary: 68000,
+    status: true,
   },
   {
     id: 10,
@@ -111,6 +120,7 @@ const users: User[] = [
     gender: 'Male',
     startDate: '2022-06-18',
     salary: 78000,
+    status: false,
   },
   {
     id: 11,
@@ -121,6 +131,7 @@ const users: User[] = [
     gender: 'Female',
     startDate: '2023-03-10',
     salary: 72000,
+    status: true,
   },
   {
     id: 12,
@@ -131,6 +142,7 @@ const users: User[] = [
     gender: 'Male',
     startDate: '2022-11-05',
     salary: 90000,
+    status: true,
   },
   {
     id: 13,
@@ -141,6 +153,7 @@ const users: User[] = [
     gender: 'Female',
     startDate: '2022-09-23',
     salary: 75000,
+    status: false,
   },
   {
     id: 14,
@@ -151,6 +164,7 @@ const users: User[] = [
     gender: 'Male',
     startDate: '2022-07-14',
     salary: 70000,
+    status: false,
   },
   {
     id: 15,
@@ -161,6 +175,7 @@ const users: User[] = [
     gender: 'Female',
     startDate: '2023-01-30',
     salary: 82000,
+    status: true,
   },
   {
     id: 16,
@@ -171,6 +186,7 @@ const users: User[] = [
     gender: 'Male',
     startDate: '2022-03-12',
     salary: 82000,
+    status: false,
   },
   {
     id: 17,
@@ -181,6 +197,7 @@ const users: User[] = [
     gender: 'Female',
     startDate: '2023-02-18',
     salary: 69000,
+    status: true,
   },
   {
     id: 18,
@@ -191,6 +208,7 @@ const users: User[] = [
     gender: 'Male',
     startDate: '2021-10-08',
     salary: 78000,
+    status: true,
   },
   {
     id: 19,
@@ -201,6 +219,7 @@ const users: User[] = [
     gender: 'Male',
     startDate: '2022-08-25',
     salary: 90000,
+    status: false,
   },
   {
     id: 20,
@@ -221,6 +240,7 @@ const users: User[] = [
     gender: 'Male',
     startDate: '2022-06-14',
     salary: 82000,
+    status: false,
   },
   {
     id: 22,
@@ -231,6 +251,7 @@ const users: User[] = [
     gender: 'Female',
     startDate: '2022-11-10',
     salary: 70000,
+    status: false,
   },
   {
     id: 23,
@@ -241,6 +262,7 @@ const users: User[] = [
     gender: 'Male',
     startDate: '2022-07-21',
     salary: 78000,
+    status: true,
   },
   {
     id: 24,
@@ -251,6 +273,7 @@ const users: User[] = [
     gender: 'Female',
     startDate: '2023-02-15',
     salary: 82000,
+    status: true,
   },
   {
     id: 25,
@@ -261,6 +284,7 @@ const users: User[] = [
     gender: 'Male',
     startDate: '2023-03-30',
     salary: 75000,
+    status: false,
   },
   {
     id: 26,
@@ -271,6 +295,7 @@ const users: User[] = [
     gender: 'Female',
     startDate: '2022-09-01',
     salary: 90000,
+    status: false,
   },
   {
     id: 27,
@@ -281,6 +306,8 @@ const users: User[] = [
     gender: 'Male',
     startDate: '2021-08-10',
     salary: 82000,
+    status: true,
+
   },
   {
     id: 28,
@@ -291,6 +318,7 @@ const users: User[] = [
     gender: 'Male',
     startDate: '2022-04-22',
     salary: 70000,
+    status: false,
   },
   {
     id: 29,
@@ -301,6 +329,7 @@ const users: User[] = [
     gender: 'Female',
     startDate: '2023-01-14',
     salary: 72000,
+    status: false,
   },
   {
     id: 30,
@@ -311,6 +340,7 @@ const users: User[] = [
     gender: 'Male',
     startDate: '2022-03-08',
     salary: 85000,
+    status: true,
   },
   {
     id: 31,
@@ -321,6 +351,7 @@ const users: User[] = [
     gender: 'Male',
     startDate: '2021-09-15',
     salary: 78000,
+    status: true,
   },
   {
     id: 32,
@@ -331,6 +362,7 @@ const users: User[] = [
     gender: 'Female',
     startDate: '2022-10-05',
     salary: 70000,
+    status: true,
   },
   {
     id: 33,
@@ -341,6 +373,7 @@ const users: User[] = [
     gender: 'Male',
     startDate: '2023-02-20',
     salary: 82000,
+    status: false,
   },
   {
     id: 34,
@@ -351,6 +384,7 @@ const users: User[] = [
     gender: 'Female',
     startDate: '2022-07-12',
     salary: 90000,
+    status: false,
   },
   {
     id: 35,
@@ -361,6 +395,7 @@ const users: User[] = [
     gender: 'Male',
     startDate: '2021-11-20',
     salary: 82000,
+    status: false,
   },
   {
     id: 36,
@@ -371,6 +406,7 @@ const users: User[] = [
     gender: 'Female',
     startDate: '2022-05-08',
     salary: 85000,
+    status: true,
   },
   {
     id: 37,
@@ -381,6 +417,7 @@ const users: User[] = [
     gender: 'Male',
     startDate: '2023-03-28',
     salary: 72000,
+    status: true,
   },
   {
     id: 38,
@@ -391,6 +428,7 @@ const users: User[] = [
     gender: 'Female',
     startDate: '2022-05-01',
     salary: 70000,
+    status: false,
   },
   {
     id: 39,
@@ -401,6 +439,7 @@ const users: User[] = [
     gender: 'Male',
     startDate: '2022-11-15',
     salary: 78000,
+    status: true,
   },
   {
     id: 40,
@@ -411,6 +450,7 @@ const users: User[] = [
     gender: 'Female',
     startDate: '2021-12-10',
     salary: 82000,
+    status: false,
   },
   {
     id: 41,
@@ -421,6 +461,7 @@ const users: User[] = [
     gender: 'Male',
     startDate: '2022-08-28',
     salary: 85000,
+    status: true,
   },
   {
     id: 42,
@@ -431,6 +472,7 @@ const users: User[] = [
     gender: 'Female',
     startDate: '2022-02-12',
     salary: 72000,
+    status: true,
   },
 ]
 
@@ -459,6 +501,9 @@ export default createStore({
     },
     deleteUserData({ commit }, userId) {
       commit('deleteUser', userId)
+    },
+    toggleUserStatus({ commit }, user) {
+      commit('updateUser', user)
     },
   },
   getters: {

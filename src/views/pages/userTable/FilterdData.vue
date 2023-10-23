@@ -1,78 +1,90 @@
 <script setup lang="ts">
-const roles = [
-  { title: 'Admin', value: 'admin' },
-  { title: 'Author', value: 'author' },
-  { title: 'Editor', value: 'editor' },
-  { title: 'Maintainer', value: 'maintainer' },
-  { title: 'Subscriber', value: 'subscriber' },
-]
+import { offices, positions } from './filterData'
 
-const plans = [
-  { title: 'Basic', value: 'basic' },
-  { title: 'Company', value: 'company' },
-  { title: 'Enterprise', value: 'enterprise' },
-  { title: 'Team', value: 'team' },
-]
+const amount = ref()
 
 const status = [
-  { title: 'Pending', value: 'pending' },
-  { title: 'Active', value: 'active' },
-  { title: 'Inactive', value: 'inactive' },
+  { title: 'Active', value: 'true' },
+  { title: 'Passive', value: 'false' },
+
 ]
 </script>
 
 <template>
-  <VCard
-    title="Search Filters"
-    class="mb-6"
-  >
-    <VCardText>
-      <VRow>
-        <!-- 👉 Select Role -->
-        <VCol
-          cols="12"
-          sm="4"
-        >
-          <VSelect
-            v-model="selectedRole"
-            label="Select Role"
-            placeholder="Select Role"
-            :items="roles"
-            clearable
-            clear-icon="mdi-close"
-          />
-        </VCol>
+  <div>
+    <VCard
+      title="Search Filters"
+      class="mb-6"
+    >
+      <VCardText>
+        <VRow>
+          <!-- 👉 Select Role -->
+          <VCol
+            cols="12"
+            sm="4"
+          >
+            <VAutocomplete
+              label="Positions"
+              :items="positions"
+              placeholder="Select Positions"
+            />
+          </VCol>
 
-        <!-- 👉 Select Plan -->
-        <VCol
-          cols="12"
-          sm="4"
-        >
-          <VSelect
-            v-model="selectedPlan"
-            label="Select Plan"
-            placeholder="Select Plan"
-            :items="plans"
-            clearable
-            clear-icon="mdi-close"
-          />
-        </VCol>
+          <!-- 👉 Select Plan -->
+          <VCol
+            cols="12"
+            sm="4"
+          >
+            <VAutocomplete
+              label="Offices"
+              :items="offices"
+              placeholder="Select Offices"
+            />
+          </VCol>
 
-        <!-- 👉 Select Status -->
-        <VCol
-          cols="12"
-          sm="4"
-        >
-          <VSelect
-            v-model="selectedStatus"
-            label="Select Status"
-            placeholder="Select Status"
-            :items="status"
-            clearable
-            clear-icon="mdi-close"
-          />
-        </VCol>
-      </VRow>
-    </VCardText>
-  </VCard>
+          <!-- 👉 Select Status -->
+          <VCol
+            cols="12"
+            sm="4"
+          >
+            <AppDateTimePicker
+              v-model="date"
+              label=" Date"
+              placeholder="Select Date"
+              :config="{ dateFormat: 'Y-m-d', disable: [{ from: `${currentYear}-${currentMonth}-20`, to: `${currentYear}-${currentMonth}-25` }] }"
+            />
+          </VCol>
+          <VCol
+            cols="12"
+            sm="4"
+          >
+            <VTextField
+              v-model="amount"
+              label="Amount"
+              type="number"
+              placeholder="30"
+            />
+          </VCol>
+          <VCol
+            cols="12"
+            sm="4"
+          >
+            <VAutocomplete
+              label="Status"
+              :items="status"
+              placeholder="Select Status"
+            />
+          </VCol>
+          <VCol
+            cols="12"
+            sm="4"
+          >
+            <VBtn class="w-100 h-100  ">
+              Filtrele
+            </VBtn>
+          </VCol>
+        </VRow>
+      </VCardText>
+    </VCard>
+  </div>
 </template>

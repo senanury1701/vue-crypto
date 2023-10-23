@@ -2,9 +2,21 @@
 import { PerfectScrollbar } from 'vue3-perfect-scrollbar'
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import type { VForm } from 'vuetify/components/VForm'
+import { offices, positions } from './filterData'
 
-import type { UserProperties } from '@/@fake-db/types'
-import { emailValidator, requiredValidator } from '@validators'
+const props = defineProps<Props>()
+const emit = defineEmits<Emit>()
+
+const status = [
+  { title: 'Active', value: 'true' },
+  { title: 'Passive', value: 'false' },
+
+]
+
+const gender = [
+  { title: 'Female', value: 'female' },
+  { title: 'Male', value: 'male' },
+]
 
 interface Emit {
   (e: 'update:isDrawerOpen', value: boolean): void
@@ -15,20 +27,9 @@ interface Props {
   isDrawerOpen: boolean
 }
 
-const props = defineProps<Props>()
-const emit = defineEmits<Emit>()
-
 const isFormValid = ref(false)
 const refForm = ref<VForm>()
-const fullName = ref('')
-const userName = ref('')
-const email = ref('')
-const company = ref('')
-const country = ref('')
-const contact = ref('')
-const role = ref()
-const plan = ref()
-const status = ref()
+const name = ref('')
 
 // 👉 drawer close
 const closeNavigationDrawer = () => {
@@ -41,28 +42,7 @@ const closeNavigationDrawer = () => {
 }
 
 const onSubmit = () => {
-  refForm.value?.validate().then(({ valid }) => {
-    if (valid) {
-      emit('userData', {
-        id: 0,
-        fullName: fullName.value,
-        company: company.value,
-        role: role.value,
-        username: userName.value,
-        country: country.value,
-        contact: contact.value,
-        email: email.value,
-        currentPlan: plan.value,
-        status: status.value,
-        avatar: '',
-      })
-      emit('update:isDrawerOpen', false)
-      nextTick(() => {
-        refForm.value?.reset()
-        refForm.value?.resetValidation()
-      })
-    }
-  })
+
 }
 
 const handleDrawerModelValueUpdate = (val: boolean) => {
@@ -95,97 +75,70 @@ const handleDrawerModelValueUpdate = (val: boolean) => {
             @submit.prevent="onSubmit"
           >
             <VRow>
-              <!-- 👉 Full name -->
               <VCol cols="12">
                 <VTextField
-                  v-model="fullName"
-                  :rules="[requiredValidator]"
-                  label="Full Name"
-                  placeholder="John Doe"
+                  v-model="name"
+                  label="Regular"
+                  placeholder="Placeholder Text"
                 />
               </VCol>
 
-              <!-- 👉 Username -->
               <VCol cols="12">
-                <VTextField
-                  v-model="userName"
-                  :rules="[requiredValidator]"
-                  label="Username"
-                  placeholder="johndoe"
+                <VAutocomplete
+                  label="Positions"
+                  :items="positions"
+                  placeholder="Select Positions"
                 />
               </VCol>
 
-              <!-- 👉 Email -->
               <VCol cols="12">
-                <VTextField
-                  v-model="email"
-                  :rules="[requiredValidator, emailValidator]"
-                  label="Email"
-                  placeholder="johndoe@email.com"
+                <VAutocomplete
+                  label="Offices"
+                  :items="offices"
+                  placeholder="Select Offices"
                 />
               </VCol>
 
-              <!-- 👉 company -->
               <VCol cols="12">
-                <VTextField
-                  v-model="company"
-                  :rules="[requiredValidator]"
-                  label="Company"
-                  placeholder="PixInvent"
+                <AppDateTimePicker
+                  v-model="date"
+                  label="Start Date"
+                  placeholder="Select Date"
+                  :config="{ dateFormat: 'Y-m-d', disable: [{ from: `${currentYear}-${currentMonth}-20`, to: `${currentYear}-${currentMonth}-25` }] }"
                 />
               </VCol>
 
-              <!-- 👉 Country -->
               <VCol cols="12">
                 <VTextField
-                  v-model="country"
-                  :rules="[requiredValidator]"
-                  label="Country"
-                  placeholder="USA"
-                />
-              </VCol>
-
-              <!-- 👉 Contact -->
-              <VCol cols="12">
-                <VTextField
-                  v-model="contact"
+                  v-model="amount"
+                  label="Age"
                   type="number"
-                  :rules="[requiredValidator]"
-                  label="Contact"
-                  placeholder="+1-541-754-3010"
+                  placeholder="30"
                 />
               </VCol>
 
-              <!-- 👉 Role -->
               <VCol cols="12">
-                <VSelect
-                  v-model="role"
-                  label="Select Role"
-                  placeholder="Select Role"
-                  :rules="[requiredValidator]"
-                  :items="['Admin', 'Author', 'Editor', 'Maintainer', 'Subscriber']"
+                <VAutocomplete
+                  label="Gender"
+                  :items="gender"
+                  placeholder="Select gender"
                 />
               </VCol>
 
-              <!-- 👉 Plan -->
               <VCol cols="12">
-                <VSelect
-                  v-model="plan"
-                  label="Select Plan"
-                  placeholder="Select Plan"
-                  :rules="[requiredValidator]"
-                  :items="['Basic', 'Company', 'Enterprise', 'Team']"
+                <VTextField
+                  v-model="amount"
+                  label="Salary"
+                  type="number"
+                  placeholder="30"
                 />
               </VCol>
 
-              <!-- 👉 Status -->
               <VCol cols="12">
-                <VSelect
-                  v-model="status"
-                  label="Select Status"
+                <VAutocomplete
+                  label="Status"
+                  :items="status"
                   placeholder="Select Status"
-                  :rules="[requiredValidator]"
-                  :items="[{ title: 'Active', value: 'active' }, { title: 'Inactive', value: 'inactive' }, { title: 'Pending', value: 'pending' }]"
                 />
               </VCol>
 
