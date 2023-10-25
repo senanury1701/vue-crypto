@@ -2,10 +2,18 @@ import { setupLayouts } from 'virtual:generated-layouts'
 import { createRouter, createWebHistory } from 'vue-router'
 import { isUserLoggedIn } from './utils' // utils.ts dosyasından isUserLoggedIn fonksiyonunu içe aktarın
 import routes from '~pages'
+import UserTableView from '@/pages//userTable/view/index.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [...setupLayouts(routes)],
+  routes: [
+    {
+      name: 'pages-userTable-view', // Yönlendirmenin adı
+      path: '/pages/userTable/:id', // Yönlendirmenin URL'i ve parametresi
+      component: UserTableView, // Yönlendirilecek bileşen
+    },
+    ...setupLayouts(routes),
+  ],
 })
 
 // Docs: https://router.vuejs.org/guide/advanced/navigation-guards.html#global-before-guards

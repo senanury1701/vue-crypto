@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import AddNewUserDrawer from '@/views/pages/userTable/DataPanel.vue'
 import navItems from '@/navigation/vertical'
 import { useThemeConfig } from '@core/composable/useThemeConfig'
 
@@ -22,6 +23,8 @@ watch([isVerticalNavCollapsed, isAppRtl], val => {
   else
     verticalNavHeaderActionAnimationName.value = val[0] ? 'rotate-180' : 'rotate-back-180'
 }, { immediate: true })
+
+const isAddNewUserDrawerVisible = ref(false)
 </script>
 
 <template>
@@ -41,6 +44,13 @@ watch([isVerticalNavCollapsed, isAppRtl], val => {
         <NavbarThemeSwitcher />
 
         <VSpacer />
+        <VIconBtn
+
+          class="mx-5"
+          @click="isAddNewUserDrawerVisible = true"
+        >
+          <VIcon icon="mdi-user-plus" />
+        </VIconBtn>
 
         <UserProfile />
       </div>
@@ -60,7 +70,10 @@ watch([isVerticalNavCollapsed, isAppRtl], val => {
     <template #footer>
       <Footer />
     </template>
-
+    <AddNewUserDrawer
+      v-model:isDrawerOpen="isAddNewUserDrawerVisible"
+      @user-data="addNewUser"
+    />
     <!-- 👉 Customizer -->
     <!-- <TheCustomizer /> -->
   </VerticalNavLayout>

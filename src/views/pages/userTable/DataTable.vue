@@ -9,15 +9,15 @@ const usersData = computed(() => store.state.users)
 const search = ref('')
 const isAddNewUserDrawerVisible = ref(false)
 
-const toggleStatus = (user: any) => {
+const toggleStatus = (user: object) => {
   store.dispatch('toggleUserStatus', user)
 }
 
-const deleteItem = (userId: any) => {
+const deleteItem = (userId: number) => {
   store.dispatch('deleteUserData', userId)
 }
 
-const editItem = (user: any) => {
+const editItem = (user: object) => {
   store.dispatch('updateUser', user)
 }
 
@@ -103,9 +103,14 @@ const headers = [
       >
         <!-- name -->
         <template #item.name="{ item }">
-          <div class="d-flex align-center">
-            <span class="text-no-wrap font-weight-medium text-high-emphasis ">{{ item.raw.name }}</span>
-          </div>
+          <RouterLink
+            :to="{ name: 'pages-userTable-view', params: { id: item.raw.id } }"
+            class="font-weight-medium user-list-name text-no-wrap text-high-emphasis"
+          >
+            {{ item.raw.name }}
+          </RouterLink>
+
+          {{ item.raw.name }}
         </template>
 
         <!-- position -->

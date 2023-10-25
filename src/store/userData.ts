@@ -494,6 +494,16 @@ export default createStore({
       if (index !== -1)
         state.users[index] = updatedUser
     },
+    setFilterd(state) {
+      if (state.filterCategory) {
+        state.filteredProducts = state.products.filter(
+          product => product.category === state.filterCategory,
+        )
+      }
+      else {
+        state.filteredProducts = state.products
+      }
+    },
   },
   actions: {
     addUserData({ commit }, newUser) {
@@ -505,6 +515,13 @@ export default createStore({
     toggleUserStatus({ commit }, user) {
       commit('updateUser', user)
     },
+    getUser({ state }, userId) {
+      // Kullanıcıyı kimliğine göre bul
+      const user = state.users.find(user => user.id === userId)
+
+      return Promise.resolve({ data: user })
+    },
+
   },
   getters: {
     users: state => state.users,
