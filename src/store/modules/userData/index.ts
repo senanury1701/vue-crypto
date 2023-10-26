@@ -1,5 +1,3 @@
-import { createStore } from 'vuex'
-
 export interface User {
   id: number
   name: string
@@ -476,7 +474,66 @@ const users: User[] = [
   },
 ]
 
-export default createStore({
+const state = {
+  users,
+}
+
+const mutations = {
+  addUser(state, newUser) {
+    const lastUserId = Math.max(...state.users.map(user => user.id))
+
+    newUser.id = lastUserId + 1
+    state.users.push(newUser)
+  },
+  deleteUser(state, userId) {
+    state.users = state.users.filter(user => user.id !== userId)
+  },
+
+  // kullanici bilgilerini duzenlemek
+  updateUser(state, updatedUser) {
+    const index = state.users.findIndex(user => user.id === updatedUser.id)
+    if (index !== -1)
+      state.users[index] = updatedUser
+  },
+  setFilterd(state) {
+    if (state.filterCategory) {
+      state.filteredProducts = state.products.filter(
+        product => product.category === state.filterCategory,
+      )
+    }
+    else {
+      state.filteredProducts = state.products
+    }
+  },
+
+}
+
+const actions = {
+
+  addUserData({ commit }, newUser) {
+    commit('addUser', newUser)
+  },
+  deleteUserData({ commit }, userId) {
+    commit('deleteUser', userId)
+  },
+  toggleUserStatus({ commit }, user) {
+    commit('updateUser', user)
+  },
+  getUser({ state }, userId) {
+    const user = state.users.find(user => user.id === userId)
+
+    return Promise.resolve({ data: user })
+  },
+}
+
+export default {
+  namespaced: true, // Bu modülün isim alanını açıklayan bir seçenek
+  state,
+  mutations,
+  actions,
+}
+
+/* const store = createStore({
   state: {
     users,
   },
@@ -485,7 +542,9 @@ export default createStore({
       state.users.push(newUser)
     },
     deleteUser(state, userId) {
-      state.users = state.users.filter(user => user.id !== userId)
+      console.log('geldi')
+
+      // state.users = state.users.filter(user => user.id !== userId)
     },
 
     // kullanici bilgilerini duzenlemek
@@ -523,7 +582,8 @@ export default createStore({
     },
 
   },
-  getters: {
-    users: state => state.users,
-  },
+
 })
+
+export default store
+ */

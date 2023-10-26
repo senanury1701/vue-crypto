@@ -1,13 +1,14 @@
 <script lang="ts" setup>
+import { useStore } from 'vuex'
 import UserProfileHeader from '@/views/pages/profile/user-profile/UserProfileHeader.vue'
 import ProfilTabs from '@/views/pages/profile/profile-tab/DemoTabUser.vue'
-import store from '@/store/userState'
 
 const data = ref()
+const store = useStore()
 
 onMounted(async () => {
   await store.dispatch('loginUser')
-  data.value = store.state.user
+  data.value = store.state.userState.user
 })
 </script>
 

@@ -9,6 +9,7 @@ import { requiredValidator } from '@validators'
 const props = defineProps<Props>()
 const emit = defineEmits<Emit>()
 const store = useStore()
+const userEditData = computed(() => props.userEditData)
 
 const statusItem = [
   { title: 'Active', value: true },
@@ -27,6 +28,7 @@ interface Emit {
 
 interface Props {
   isDrawerOpen: boolean
+  userEditData: Record<string, string | number | boolean>
 }
 
 const isFormValid = ref(false)
@@ -41,7 +43,7 @@ const salary = ref()
 const status = ref()
 
 // 👉 drawer close
-const closeNavigationDrawer = () => {
+function closeNavigationDrawer() {
   emit('update:isDrawerOpen', false)
 
   nextTick(() => {
@@ -72,7 +74,7 @@ const swal = () => {
         status: status.value,
       }
 
-      store.dispatch('addUserData', userData)
+      store.dispatch('userData/addUserData', userData)
       closeNavigationDrawer()
     }
 
@@ -95,130 +97,146 @@ const handleDrawerModelValueUpdate = (val: boolean) => {
 </script>
 
 <template>
-  <VNavigationDrawer
-    temporary
-    :width="400"
-    location="end"
-    class="scrollable-content"
-    :model-value="props.isDrawerOpen"
-    @update:model-value="handleDrawerModelValueUpdate"
-  >
-    <!-- 👉 Title -->
-    <AppDrawerHeaderSection
-      title="Add User"
-      @cancel="closeNavigationDrawer"
-    />
+  <div>
+    <VNavigationDrawer
+      temporary
+      :width="400"
+      location="end"
+      class="scrollable-content"
+      :model-value="props.isDrawerOpen"
+      @update:model-value="handleDrawerModelValueUpdate"
+    >
+      <!-- 👉 Title -->
+      <AppDrawerHeaderSection
+        :title="userEditData ? 'Düzenle' : 'Yeni Kullanici Ekle'"
+        @cancel="closeNavigationDrawer"
+      />
 
-    <PerfectScrollbar :options="{ wheelPropagation: false }">
-      <VCard flat>
-        <VCardText>
-          <!-- 👉 Form -->
-          <VForm
-            ref="refForm"
-            v-model="isFormValid"
-            @submit.prevent="onSubmit"
-          >
-            <VRow>
-              <VCol cols="12">
-                <VTextField
-                  v-model="name"
-                  label="Regular"
-                  placeholder="Placeholder Text"
-                  :rules="[requiredValidator]"
-                />
-              </VCol>
+      <PerfectScrollbar :options="{ wheelPropagation: false }">
+        <VCard flat>
+          <VCardText>
+            <!-- 👉 Form -->
+            <VForm
+              ref="refForm"
+              v-model="isFormValid"
+              @submit.prevent="onSubmit"
+            >
+              <VRow>
+                <VCol cols="12">
+                  <h2> Isim </h2>
+                  <VTextField
+                    v-model="name"
+                    placeholder="Name"
+                    :rules="[requiredValidator]"
+                    :value="userEditData ? userEditData.name : ''"
+                    class="my-2"
+                  />
+                </VCol>
 
-              <VCol cols="12">
-                <VAutocomplete
-                  v-model="position"
-                  label="Positions"
-                  :items="positions"
-                  placeholder="Select Positions"
-                  :rules="[requiredValidator]"
-                />
-              </VCol>
+                <VCol cols="12">
+                  <h2> Positions </h2>
+                  <VAutocomplete
+                    v-model="position"
+                    :items="positions"
+                    placeholder="Select Positions"
+                    :rules="[requiredValidator]"
+                    class="my-2"
+                  />
+                </VCol>
 
-              <VCol cols="12">
-                <VAutocomplete
-                  v-model="office"
-                  label="Offices"
-                  :items="offices"
-                  placeholder="Select Offices"
-                  :rules="[requiredValidator]"
-                />
-              </VCol>
+                <VCol cols="12">
+                  <h2> Office </h2>
+                  <VAutocomplete
+                    v-model="office"
+                    :items="offices"
+                    placeholder="Select Offices"
+                    :rules="[requiredValidator]"
+                    class="my-2"
+                  />
+                </VCol>
 
-              <VCol cols="12">
-                <AppDateTimePicker
-                  v-model="startDate"
-                  label="Start Date"
-                  placeholder="Select Date"
-                  :config="{ dateFormat: 'Y-m-d', disable: [{ from: `${currentYear}-${currentMonth}-20`, to: `${currentYear}-${currentMonth}-25` }] }"
-                  :rules="[requiredValidator]"
-                />
-              </VCol>
+                <VCol cols="12">
+                  <h2> Start Date </h2>
+                  <AppDateTimePicker
+                    v-model="startDate"
+                    placeholder="Select Date"
+                    :config="{ dateFormat: 'Y-m-d', disable: [{ from: `${currentYear}-${currentMonth}-20`, to: `${currentYear}-${currentMonth}-25` }] }"
+                    :rules="[requiredValidator]"
+                    class="my-2"
+                  />
+                </VCol>
 
-              <VCol cols="12">
-                <VTextField
-                  v-model="age"
-                  label="Age"
-                  type="number"
-                  placeholder="30"
-                  :rules="[requiredValidator]"
-                />
-              </VCol>
+                <VCol cols="12">
+                  <h2> Age </h2>
+                  <VTextField
+                    v-model="age"
+                    type="number"
+                    placeholder="30"
+                    :rules="[requiredValidator]"
+                    class="my-2"
+                  />
+                </VCol>
 
-              <VCol cols="12">
-                <VAutocomplete
-                  v-model="gender"
-                  label="Gender"
-                  :items="genderItem"
-                  placeholder="Select gender"
-                  :rules="[requiredValidator]"
-                />
-              </VCol>
+                <VCol cols="12">
+                  <h2> Gender </h2>
+                  <VAutocomplete
+                    v-model="gender"
+                    :items="genderItem"
+                    placeholder="Select gender"
+                    :rules="[requiredValidator]"
+                    class="my-2"
+                  />
+                </VCol>
 
-              <VCol cols="12">
-                <VTextField
-                  v-model="salary"
-                  label="Salary"
-                  type="number"
-                  placeholder="30"
-                  :rules="[requiredValidator]"
-                />
-              </VCol>
+                <VCol cols="12">
+                  <h2> Salary </h2>
+                  <VTextField
+                    v-model="salary"
+                    type="number"
+                    placeholder="30"
+                    :rules="[requiredValidator]"
+                    class="my-2"
+                  />
+                </VCol>
 
-              <VCol cols="12">
-                <VAutocomplete
-                  v-model="status"
-                  label="Status"
-                  :items="statusItem"
-                  placeholder="Select Status"
-                  :rules="[requiredValidator]"
-                />
-              </VCol>
+                <VCol cols="12">
+                  <h2> Status </h2>
+                  <VAutocomplete
+                    v-model="status"
+                    :items="statusItem"
+                    placeholder="Select Status"
+                    class="my-2"
+                  />
+                </VCol>
 
-              <!-- 👉 Submit and Cancel -->
-              <VCol cols="12">
-                <VBtn
-                  type="submit"
-                  class="me-3"
+                <!-- 👉 Submit and Cancel -->
+                <VCol
+                  cols="12"
+                  class="mb-5"
                 >
-                  Submit
-                </VBtn>
-                <VBtn
-                  type="reset"
-                  variant="outlined"
-                  color="secondary"
-                  @click="closeNavigationDrawer"
-                >
-                  Cancel
-                </VBtn>
-              </VCol>
-            </VRow>
-          </VForm>
-        </VCardText>
-      </VCard>
-    </PerfectScrollbar>
-  </VNavigationDrawer>
+                  <VBtn
+                    type="submit"
+                    class="me-3"
+                  >
+                    {{ userEditData ? 'duzenle' : 'ekle' }}
+                  </VBtn>
+                  <VBtn
+                    type="reset"
+                    variant="outlined"
+                    color="secondary"
+                    @click="closeNavigationDrawer"
+                  >
+                    Cancel
+                  </VBtn>
+                  <VTExt>
+                    {{ userEditData }}
+                  </VTExt>
+                </VCol>
+              </VRow>
+            </VForm>
+          </VCardText>
+        </VCard>
+      </PerfectScrollbar>
+    </VNavigationDrawer>
+  </div>
 </template>

@@ -7,7 +7,7 @@ const store = useStore()
 const route = useRoute()
 const userId = Number(route.params.id)
 
-store.dispatch('getUser', userId)
+store.dispatch('userData/getUser', userId)
   .then(data => {
     userData.value = data // Set userData to the resolved data
   })

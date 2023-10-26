@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import avatar1 from '@images/avatars/avatar-1.png'
-import store from '@/store/userState'
+import store from '@/store/modules/userState/index'
 
 const userData = ref()
 

@@ -5,20 +5,27 @@ import Swal from 'sweetalert2'
 import AddNewUserDrawer from './DataPanel.vue'
 
 const store = useStore()
-const usersData = computed(() => store.state.users)
+const usersData = computed(() => store.state.userData.users)
 const search = ref('')
 const isAddNewUserDrawerVisible = ref(false)
+const userEditData = ref()
 
 const toggleStatus = (user: object) => {
-  store.dispatch('toggleUserStatus', user)
+  store.dispatch('userData/toggleUserStatus', user)
 }
 
 const deleteItem = (userId: number) => {
-  store.dispatch('deleteUserData', userId)
+  store.dispatch('userData/deleteUserData', userId)
 }
 
-const editItem = (user: object) => {
-  store.dispatch('updateUser', user)
+const editItem = (user: any) => {
+  userEditData.value = user
+  isAddNewUserDrawerVisible.value = true // Çekmeceyi açabilirsiniz.
+}
+
+const addUser = () => {
+  userEditData.value = null
+  isAddNewUserDrawerVisible.value = true
 }
 
 const swal = (userId: number) => Swal.fire({
@@ -84,7 +91,7 @@ const headers = [
               <!-- 👉 Add user button -->
               <VBtn
                 class="order-sm-2 order-1"
-                @click="isAddNewUserDrawerVisible = true"
+                @click="addUser"
               >
                 Add User
               </VBtn>
@@ -105,12 +112,10 @@ const headers = [
         <template #item.name="{ item }">
           <RouterLink
             :to="{ name: 'pages-userTable-view', params: { id: item.raw.id } }"
-            class="font-weight-medium user-list-name text-no-wrap text-high-emphasis"
+            class="font-weight-medium user-list-name"
           >
             {{ item.raw.name }}
           </RouterLink>
-
-          {{ item.raw.name }}
         </template>
 
         <!-- position -->
@@ -180,7 +185,13 @@ const headers = [
     </VCard>
     <AddNewUserDrawer
       v-model:isDrawerOpen="isAddNewUserDrawerVisible"
-      @user-data="addNewUser"
+      :user-edit-data="userEditData"
     />
   </div>
 </template>
+
+<style lang="scss">
+.user-list-name:not(:hover) {
+  color: rgba(var(--v-theme-on-background), var(--v-high-emphasis-opacity));
+}
+</style>

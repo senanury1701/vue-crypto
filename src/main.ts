@@ -9,9 +9,7 @@ import '@core/scss/template/index.scss'
 import '@styles/styles.scss'
 import { createPinia } from 'pinia'
 import { createApp } from 'vue'
-import storeUser from './store/userState'
-import storeFavorite from './store/favoriteCrypto'
-import userData from './store/userData'
+import store from './store/index'
 
 loadFonts()
 
@@ -23,9 +21,7 @@ app.use(vuetify)
 app.use(createPinia())
 app.use(router)
 app.use(layoutsPlugin)
-app.use(storeUser)
-app.use(storeFavorite)
-app.use(userData)
+app.use(store)
 
 // Mount vue app
 app.mount('#app')

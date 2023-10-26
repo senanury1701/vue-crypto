@@ -27,7 +27,7 @@ const miscThemeMask = useGenerateImageVariant(miscMaskLight, miscMaskDark)
         class="my-sm-4"
       />
       <VBtn
-        to="home"
+        to="/"
         class="mt-10"
       >
         Back to Home

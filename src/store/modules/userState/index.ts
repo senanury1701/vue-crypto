@@ -7,7 +7,7 @@ interface RootState {
 }
 
 const state: RootState = {
-  user: 'Deneme',
+  user: '',
 }
 
 const mutations = {

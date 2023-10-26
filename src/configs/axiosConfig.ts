@@ -3,7 +3,7 @@ import axios from 'axios'
 import router from '@/router'
 
 const axiosConfig = axios.create({
-  baseURL: 'http://crypto.yahyabatulu.com:571/api/',
+  baseURL: 'http://localhost/api/',
 
 })
 
