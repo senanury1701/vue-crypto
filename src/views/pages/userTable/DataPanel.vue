@@ -93,6 +93,10 @@ const onSubmit = () => {
 
 const handleDrawerModelValueUpdate = (val: boolean) => {
   emit('update:isDrawerOpen', val)
+  nextTick(() => {
+    refForm.value?.reset()
+    refForm.value?.resetValidation()
+  })
 }
 </script>
 
@@ -140,6 +144,7 @@ const handleDrawerModelValueUpdate = (val: boolean) => {
                     :items="positions"
                     placeholder="Select Positions"
                     :rules="[requiredValidator]"
+                    :value="userEditData ? userEditData.position : ''"
                     class="my-2"
                   />
                 </VCol>
@@ -151,6 +156,8 @@ const handleDrawerModelValueUpdate = (val: boolean) => {
                     :items="offices"
                     placeholder="Select Offices"
                     :rules="[requiredValidator]"
+                    :value="userEditData ? userEditData.office : ''"
+
                     class="my-2"
                   />
                 </VCol>
@@ -162,6 +169,8 @@ const handleDrawerModelValueUpdate = (val: boolean) => {
                     placeholder="Select Date"
                     :config="{ dateFormat: 'Y-m-d', disable: [{ from: `${currentYear}-${currentMonth}-20`, to: `${currentYear}-${currentMonth}-25` }] }"
                     :rules="[requiredValidator]"
+                    :value="userEditData ? userEditData.startDate : ''"
+
                     class="my-2"
                   />
                 </VCol>
@@ -173,6 +182,8 @@ const handleDrawerModelValueUpdate = (val: boolean) => {
                     type="number"
                     placeholder="30"
                     :rules="[requiredValidator]"
+                    :value="userEditData ? userEditData.age : ''"
+
                     class="my-2"
                   />
                 </VCol>
@@ -184,6 +195,8 @@ const handleDrawerModelValueUpdate = (val: boolean) => {
                     :items="genderItem"
                     placeholder="Select gender"
                     :rules="[requiredValidator]"
+                    :value="userEditData ? userEditData.gender : ''"
+
                     class="my-2"
                   />
                 </VCol>
@@ -195,6 +208,8 @@ const handleDrawerModelValueUpdate = (val: boolean) => {
                     type="number"
                     placeholder="30"
                     :rules="[requiredValidator]"
+                    :value="userEditData ? userEditData.salary : ''"
+
                     class="my-2"
                   />
                 </VCol>
@@ -205,6 +220,8 @@ const handleDrawerModelValueUpdate = (val: boolean) => {
                     v-model="status"
                     :items="statusItem"
                     placeholder="Select Status"
+                    :value="userEditData ? userEditData.status : ''"
+
                     class="my-2"
                   />
                 </VCol>

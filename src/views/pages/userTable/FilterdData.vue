@@ -39,8 +39,7 @@ const updateFilter = () => {
   if (selectedPosition.value)
     selectedAll.selectedPosition = selectedPosition.value
 
-  store.dispatch('setFilteredAll', selectedAll)
-  console.log(selectedAll)
+  store.dispatch('userData/filterData', selectedAll)
 }
 </script>
 
@@ -128,7 +127,10 @@ const updateFilter = () => {
             cols="12"
             sm="4"
           >
-            <VBtn class="w-100 h-100  ">
+            <VBtn
+              class="w-100 h-100 "
+              @click="updateFilter"
+            >
               Filtrele
             </VBtn>
           </VCol>

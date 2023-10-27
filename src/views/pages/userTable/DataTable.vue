@@ -6,9 +6,11 @@ import AddNewUserDrawer from './DataPanel.vue'
 
 const store = useStore()
 const usersData = computed(() => store.state.userData.users)
+const filterData = computed(() => store.state.userData.filteredData)
 const search = ref('')
 const isAddNewUserDrawerVisible = ref(false)
 const userEditData = ref()
+const selectedRows = ref<string[]>([])
 
 const toggleStatus = (user: object) => {
   store.dispatch('userData/toggleUserStatus', user)
@@ -58,60 +60,49 @@ const headers = [
 <template>
   <div>
     <VCard>
-      <VCardText>
-        <VRow>
-          <VCardText class="d-flex ">
-            <VCol cols="6">
-              <!-- 👉 Export button -->
-              <VBtn
-                variant="outlined"
-                color="secondary"
-                prepend-icon="mdi-tray-arrow-up"
-              >
-                Export
-              </VBtn>
-            </VCol>
-            <VCol
-              cols="6"
-              class="d-flex"
-            >
-              <!-- 👉 Search  -->
-              <VTextField
-                v-model="search"
-                density="compact"
-                label="Search"
-                append-inner-icon="mdi-magnify"
-                single-line
-                hide-details
-                dense
-                outlined
-                class="mx-3"
-              />
+      <VCardText class="d-flex align-center flex-wrap gap-4">
+        <div class="me-3">
+          <VBtn :disabled="!selectedRows.length">
+            actin
+          </VBtn>
+        </div>
 
-              <!-- 👉 Add user button -->
-              <VBtn
-                class="order-sm-2 order-1"
-                @click="addUser"
-              >
-                Add User
-              </VBtn>
-            </VCol>
-          </VCardText>
-        </VRow>
+        <VSpacer />
+
+        <div class="d-flex align-center flex-wrap gap-4">
+          <VTextField
+            v-model="search"
+            density="compact"
+            label="Search"
+            append-inner-icon="mdi-magnify"
+            single-line
+            hide-details
+            dense
+            outlined
+          />
+
+          <VBtn
+            prepend-icon="mdi-plus"
+            @click="addUser"
+          >
+            Add User
+          </VBtn>
+        </div>
       </VCardText>
 
       <!-- 👉 Data Table  -->
       <VDataTable
         :headers="headers"
-        :items="usersData"
+        :items="filterData ? filterData : usersData"
         :search="search"
         :items-per-page="5"
         show-select
       >
         <!-- name -->
+
         <template #item.name="{ item }">
           <RouterLink
-            :to="{ name: 'pages-userTable-view', params: { id: item.raw.id } }"
+            :to="{ name: 'userTable-id', params: { id: item.raw.id } }"
             class="font-weight-medium user-list-name"
           >
             {{ item.raw.name }}
