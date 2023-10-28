@@ -20,7 +20,7 @@ const updateFilter = () => {
     selectedAmount: undefined,
     selectedDate: undefined,
     selectedOffice: undefined,
-    selectedStatus: undefined,
+    selectedStatus: selectedStatus.value === 'active' ? true : selectedStatus.value === 'passive' ? false : undefined,
     selectedPosition: undefined,
   }
 
@@ -33,12 +33,13 @@ const updateFilter = () => {
   if (selectedOffice.value)
     selectedAll.selectedOffice = selectedOffice.value
 
-  if (selectedStatus.value)
-    selectedAll.selectedStatus = selectedStatus.value
-
   if (selectedPosition.value)
     selectedAll.selectedPosition = selectedPosition.value
 
+  if (selectedStatus.value)
+    selectedAll.selectedStatus = selectedStatus.value
+
+  console.log(selectedAll.selectedStatus)
   store.dispatch('userData/filterData', selectedAll)
 }
 </script>
@@ -102,7 +103,7 @@ const updateFilter = () => {
           >
             <VTextField
               v-model="selectedAmount"
-              label="Amount"
+              label="min salary"
               type="number"
               placeholder="30"
               clearable
@@ -115,7 +116,6 @@ const updateFilter = () => {
           >
             <VAutocomplete
               v-model="selectedStatus"
-
               label="Status"
               :items="status"
               placeholder="Select Status"

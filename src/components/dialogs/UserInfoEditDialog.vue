@@ -1,20 +1,19 @@
 <script setup lang="ts">
 interface UserData {
-  id: number | null
-  fullName: string
-  company: string
-  role: string
-  username: string
+  id: number
+  name: string
+  position: string
+  office: string
+  age: number
+  gender: string
+  startDate: string
+  salary: number
+  status: boolean
   country: string
   contact: string
   email: string
-  currentPlan: string
-  status: string
-  avatar: string
-  taskDone: number | null
-  projectDone: number | null
-  taxId: string
   language: string
+
 }
 
 interface Props {
@@ -29,20 +28,18 @@ interface Emit {
 
 const props = withDefaults(defineProps<Props>(), {
   userData: () => ({
-    id: 0,
-    fullName: '',
-    company: '',
-    role: '',
-    username: '',
+    id: '',
+    name: '',
+    position: '',
+    office: '',
+    age: '',
+    gender: '',
+    startDate: '',
+    salary: '',
+    status: '',
     country: '',
     contact: '',
     email: '',
-    currentPlan: '',
-    status: '',
-    avatar: '',
-    taskDone: null,
-    projectDone: null,
-    taxId: '',
     language: '',
   }),
 })
@@ -88,11 +85,8 @@ const dialogVisibleUpdate = (val: boolean) => {
 
       <VCardItem class="text-center">
         <VCardTitle class="text-h5 mb-2">
-          Edit User Information
+          kullanici Duzenle
         </VCardTitle>
-        <VCardSubtitle>
-          Updating user details will receive a privacy audit.
-        </VCardSubtitle>
       </VCardItem>
 
       <VCardText>
@@ -108,7 +102,7 @@ const dialogVisibleUpdate = (val: boolean) => {
               md="6"
             >
               <VTextField
-                v-model="userData.fullName"
+                v-model="userData.name"
                 label="Full Name"
                 placeholder="John Doe"
               />
@@ -119,10 +113,11 @@ const dialogVisibleUpdate = (val: boolean) => {
               cols="12"
               md="6"
             >
-              <VTextField
-                v-model="userData.username"
-                label="Username"
-                placeholder="johndoe"
+              <VAutocomplete
+                v-model="userData.position"
+                :items="positions"
+                placeholder="Select Positions"
+                class="my-2"
               />
             </VCol>
 
@@ -156,9 +151,9 @@ const dialogVisibleUpdate = (val: boolean) => {
               md="6"
             >
               <VTextField
-                v-model="userData.taxId"
-                label="Tax Id"
-                placeholder="123456789"
+                v-model="userData.office"
+                label="office"
+                placeholder="office"
               />
             </VCol>
 

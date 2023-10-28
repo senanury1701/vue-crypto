@@ -43,6 +43,19 @@ const swal = (userId: number) => Swal.fire({
     deleteItem(userId)
 })
 
+const selectedDelete = () => {
+  if (selectedRows.length === 0)
+    return
+
+  const selectedIds = selectedRows.value.map(selectedId => parseInt(selectedId))
+
+  selectedIds.forEach(userId => {
+    deleteItem(userId)
+  })
+
+  selectedRows.value = []
+}
+
 // headers
 const headers = [
   { title: 'Name', key: 'name' },
@@ -62,8 +75,11 @@ const headers = [
     <VCard>
       <VCardText class="d-flex align-center flex-wrap gap-4">
         <div class="me-3">
-          <VBtn :disabled="!selectedRows.length">
-            actin
+          <VBtn
+            :disabled="!selectedRows.length"
+            @click="selectedDelete"
+          >
+            delete
           </VBtn>
         </div>
 
@@ -92,6 +108,7 @@ const headers = [
 
       <!-- 👉 Data Table  -->
       <VDataTable
+        v-model="selectedRows"
         :headers="headers"
         :items="filterData ? filterData : usersData"
         :search="search"

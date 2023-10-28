@@ -64,7 +64,7 @@ const users: User[] = [
     gender: 'Female',
     startDate: '2022-02-10',
     salary: 72000,
-    status: true,
+    status: false,
     country: 'İspanya',
     contact: '123-987-4560',
     email: 'mariagarcia@example.com',
@@ -109,7 +109,7 @@ const users: User[] = [
     gender: 'Female',
     startDate: '2021-10-10',
     salary: 95000,
-    status: true,
+    status: false,
     country: 'Fransa',
     contact: '33-1-98765432',
     email: 'sophiemartin@example.com',
@@ -759,26 +759,20 @@ const mutations = {
   setFilteredProducts(state, selectedAll) {
     state.filteredData = null
     state.filteredData = state.users.filter(user => {
-      if (selectedAll.selectedAmount !== undefined && user.salary !== selectedAll.selectedAmount) {
-        // Eğer seçenek belirlenmiş ve kullanıcının maaşı seçenekle uyuşmuyorsa, bu kullanıcıyı filtreleme
+      if (selectedAll.selectedAmount !== undefined && user.salary <= selectedAll.selectedAmount)
         return false
-      }
-      if (selectedAll.selectedDate !== undefined && user.startDate !== selectedAll.selectedDate) {
-        // Eğer seçenek belirlenmiş ve kullanıcının işe başlama tarihi seçenekle uyuşmuyorsa, bu kullanıcıyı filtreleme
+
+      if (selectedAll.selectedDate !== undefined && user.startDate !== selectedAll.selectedDate)
         return false
-      }
-      if (selectedAll.selectedOffice !== undefined && user.office !== selectedAll.selectedOffice) {
-        // Eğer seçenek belirlenmiş ve kullanıcının ofisi seçenekle uyuşmuyorsa, bu kullanıcıyı filtreleme
+
+      if (selectedAll.selectedOffice !== undefined && user.office !== selectedAll.selectedOffice)
         return false
-      }
-      if (selectedAll.selectedStatus !== undefined && user.status !== selectedAll.selectedStatus) {
-        // Eğer seçenek belirlenmiş ve kullanıcının durumu seçenekle uyuşmuyorsa, bu kullanıcıyı filtreleme
+
+      if (selectedAll.selectedStatus !== undefined && user.status !== selectedAll.selectedStatus)
         return false
-      }
-      if (selectedAll.selectedPosition !== undefined && user.position !== selectedAll.selectedPosition) {
-        // Eğer seçenek belirlenmiş ve kullanıcının durumu seçenekle uyuşmuyorsa, bu kullanıcıyı filtreleme
+
+      if (selectedAll.selectedPosition !== undefined && user.position !== selectedAll.selectedPosition)
         return false
-      }
 
       return true
     })

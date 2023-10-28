@@ -10,6 +10,29 @@ const props = defineProps<Props>()
 const emit = defineEmits<Emit>()
 const store = useStore()
 const userEditData = computed(() => props.userEditData)
+const isFormValid = ref(false)
+const refForm = ref<VForm>()
+const name = ref()
+const position = ref()
+const office = ref()
+const startDate = ref()
+const age = ref()
+const gender = ref()
+const salary = ref()
+const status = ref()
+
+watch(userEditData, newValue => {
+  if (newValue) {
+    name.value = newValue.name
+    position.value = newValue.position
+    office.value = newValue.office
+    startDate.value = newValue.startDate
+    age.value = newValue.age
+    gender.value = newValue.gender
+    salary.value = newValue.salary
+    status.value = newValue.status
+  }
+})
 
 const statusItem = [
   { title: 'Active', value: true },
@@ -28,19 +51,8 @@ interface Emit {
 
 interface Props {
   isDrawerOpen: boolean
-  userEditData: Record<string, string | number | boolean>
+  userEditData: Record<string, string | number | boolean >
 }
-
-const isFormValid = ref(false)
-const refForm = ref<VForm>()
-const name = ref('')
-const position = ref()
-const office = ref()
-const startDate = ref()
-const age = ref()
-const gender = ref()
-const salary = ref()
-const status = ref()
 
 // 👉 drawer close
 function closeNavigationDrawer() {
@@ -61,21 +73,42 @@ const swal = () => {
     denyButtonText: 'Don\'t save',
   }).then(result => {
     if (result.isConfirmed) {
-      Swal.fire('Saved!', '', 'success')
+      if (userEditData) {
+        Swal.fire('Saved!', '', 'success')
+        console.log(userEditData)
 
-      const userData = {
-        name: name.value,
-        position: position.value,
-        office: office.value,
-        startDate: startDate.value,
-        age: age.value,
-        gender: gender.value,
-        salary: salary.value,
-        status: status.value,
+        const userData = {
+          id: userEditData.value.id,
+          name: name.value,
+          position: position.value,
+          office: office.value,
+          startDate: startDate.value,
+          age: age.value,
+          gender: gender.value,
+          salary: salary.value,
+          status: status.value,
+        }
+
+        store.dispatch('userData/toggleUserStatus', userData)
+        closeNavigationDrawer()
       }
+      else if (!userEditData) {
+        Swal.fire('Saved!', '', 'success')
 
-      store.dispatch('userData/addUserData', userData)
-      closeNavigationDrawer()
+        const userData = {
+          name: name.value,
+          position: position.value,
+          office: office.value,
+          startDate: startDate.value,
+          age: age.value,
+          gender: gender.value,
+          salary: salary.value,
+          status: status.value,
+        }
+
+        store.dispatch('userData/addUserData', userData)
+        closeNavigationDrawer()
+      }
     }
 
     else if (result.isDenied) {
@@ -132,7 +165,6 @@ const handleDrawerModelValueUpdate = (val: boolean) => {
                     v-model="name"
                     placeholder="Name"
                     :rules="[requiredValidator]"
-                    :value="userEditData ? userEditData.name : ''"
                     class="my-2"
                   />
                 </VCol>
@@ -144,7 +176,6 @@ const handleDrawerModelValueUpdate = (val: boolean) => {
                     :items="positions"
                     placeholder="Select Positions"
                     :rules="[requiredValidator]"
-                    :value="userEditData ? userEditData.position : ''"
                     class="my-2"
                   />
                 </VCol>
@@ -156,8 +187,6 @@ const handleDrawerModelValueUpdate = (val: boolean) => {
                     :items="offices"
                     placeholder="Select Offices"
                     :rules="[requiredValidator]"
-                    :value="userEditData ? userEditData.office : ''"
-
                     class="my-2"
                   />
                 </VCol>
@@ -166,10 +195,7 @@ const handleDrawerModelValueUpdate = (val: boolean) => {
                   <h2> Start Date </h2>
                   <AppDateTimePicker
                     v-model="startDate"
-                    placeholder="Select Date"
-                    :config="{ dateFormat: 'Y-m-d', disable: [{ from: `${currentYear}-${currentMonth}-20`, to: `${currentYear}-${currentMonth}-25` }] }"
-                    :rules="[requiredValidator]"
-                    :value="userEditData ? userEditData.startDate : ''"
+                    placeholder="Select date"
 
                     class="my-2"
                   />
@@ -181,9 +207,6 @@ const handleDrawerModelValueUpdate = (val: boolean) => {
                     v-model="age"
                     type="number"
                     placeholder="30"
-                    :rules="[requiredValidator]"
-                    :value="userEditData ? userEditData.age : ''"
-
                     class="my-2"
                   />
                 </VCol>
@@ -195,7 +218,6 @@ const handleDrawerModelValueUpdate = (val: boolean) => {
                     :items="genderItem"
                     placeholder="Select gender"
                     :rules="[requiredValidator]"
-                    :value="userEditData ? userEditData.gender : ''"
 
                     class="my-2"
                   />
@@ -208,7 +230,6 @@ const handleDrawerModelValueUpdate = (val: boolean) => {
                     type="number"
                     placeholder="30"
                     :rules="[requiredValidator]"
-                    :value="userEditData ? userEditData.salary : ''"
 
                     class="my-2"
                   />
@@ -220,8 +241,8 @@ const handleDrawerModelValueUpdate = (val: boolean) => {
                     v-model="status"
                     :items="statusItem"
                     placeholder="Select Status"
-                    :value="userEditData ? userEditData.status : ''"
 
+                    :false-value="false"
                     class="my-2"
                   />
                 </VCol>
@@ -245,9 +266,6 @@ const handleDrawerModelValueUpdate = (val: boolean) => {
                   >
                     Cancel
                   </VBtn>
-                  <VTExt>
-                    {{ userEditData }}
-                  </VTExt>
                 </VCol>
               </VRow>
             </VForm>

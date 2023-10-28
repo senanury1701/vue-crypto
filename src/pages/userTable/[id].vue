@@ -46,6 +46,12 @@ onMounted(async () => {
     <VRow>
       <VCol cols="12">
         <VCard v-if="userData">
+          <IconBtn :to="{ name: 'userTable' }">
+            <VIcon
+              icon="
+            mdi-backspace-outline"
+            />
+          </IconBtn>
           <VCardText class="text-center pt-15">
             <h6 class="text-h6 mt-4">
               {{ userData.name }}
@@ -95,13 +101,8 @@ onMounted(async () => {
                       <span class="font-weight-medium">
                         gender:
                       </span>
-                      <VChip
-                        label
-                        size="small"
-                        class="text-capitalize"
-                      >
-                        {{ userData.gender }}
-                      </VChip>
+
+                      {{ userData.gender }}
                     </VListItemTitle>
                   </VListItem>
 
@@ -167,24 +168,22 @@ onMounted(async () => {
                   </VListItem>
                 </VList>
               </VCardText>
-
-              <!-- 👉 Edit and Suspend button -->
-              <VCardText class="d-flex justify-center">
-                <VBtn
-                  variant="elevated"
-                  class="me-4"
-                  @click="isUserInfoEditDialogVisible = true"
-                >
-                  Edit
-                </VBtn>
-                <VBtn
-                  variant="outlined"
-                  color="error"
-                >
-                  Suspend
-                </VBtn>
-              </VCardText>
             </div>
+          </VCardText>
+          <VCardText class="d-flex justify-center">
+            <VBtn
+              variant="elevated"
+              class="me-4"
+              @click="isUserInfoEditDialogVisible = true"
+            >
+              Edit
+            </VBtn>
+            <VBtn
+              variant="outlined"
+              color="error"
+            >
+              Suspend
+            </VBtn>
           </VCardText>
         </VCard>
       </VCol>
