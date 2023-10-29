@@ -73,9 +73,8 @@ const swal = () => {
     denyButtonText: 'Don\'t save',
   }).then(result => {
     if (result.isConfirmed) {
-      if (userEditData) {
+      if (userEditData.value) {
         Swal.fire('Saved!', '', 'success')
-        console.log(userEditData)
 
         const userData = {
           id: userEditData.value.id,
@@ -92,7 +91,7 @@ const swal = () => {
         store.dispatch('userData/toggleUserStatus', userData)
         closeNavigationDrawer()
       }
-      else if (!userEditData) {
+      else {
         Swal.fire('Saved!', '', 'success')
 
         const userData = {
@@ -106,6 +105,7 @@ const swal = () => {
           status: status.value,
         }
 
+        console.log(userData)
         store.dispatch('userData/addUserData', userData)
         closeNavigationDrawer()
       }

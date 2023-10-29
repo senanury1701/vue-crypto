@@ -797,9 +797,6 @@ const actions = {
 
       if (user)
         resolve(user)
-
-      else
-        resolve(null)
     })
   },
   filterData({ commit }, selectedAll) {
