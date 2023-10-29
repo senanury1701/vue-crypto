@@ -23,7 +23,7 @@ const users: User[] = [
     country: 'İngiltere',
     contact: '123-456-7890',
     email: 'johndoe@example.com',
-    language: 'English',
+    language: ['English'],
   },
   {
     id: 2,
@@ -38,7 +38,7 @@ const users: User[] = [
     country: 'Amerika',
     contact: '987-654-3210',
     email: 'alicesmith@example.com',
-    language: 'English',
+    language: ['English'],
   },
   {
     id: 3,
@@ -53,7 +53,7 @@ const users: User[] = [
     country: 'Türkiye',
     contact: '555-555-5555',
     email: 'mehmetyilmaz@example.com',
-    language: 'Türkçe, İngilizce',
+    language: ['Türkçe, İngilizce'],
   },
   {
     id: 4,
@@ -68,7 +68,7 @@ const users: User[] = [
     country: 'İspanya',
     contact: '123-987-4560',
     email: 'mariagarcia@example.com',
-    language: 'İspanyolca, İngilizce',
+    language: ['İspanyolca, İngilizce'],
   },
   {
     id: 5,
@@ -83,7 +83,7 @@ const users: User[] = [
     country: 'Amerika',
     contact: '555-123-7890',
     email: 'emmajohnson@example.com',
-    language: 'English',
+    language: ['English'],
   },
   {
     id: 6,
@@ -98,7 +98,7 @@ const users: User[] = [
     country: 'Birleşik Arap Emirlikleri',
     contact: '+971-50-123-4567',
     email: 'ahmedmohamed@example.com',
-    language: 'Arabic, English',
+    language: ['Arabic, English'],
   },
   {
     id: 7,
@@ -113,7 +113,7 @@ const users: User[] = [
     country: 'Fransa',
     contact: '33-1-98765432',
     email: 'sophiemartin@example.com',
-    language: 'French, English',
+    language: ['French, English'],
   },
   {
     id: 8,
@@ -128,7 +128,7 @@ const users: User[] = [
     country: 'Güney Kore',
     contact: '02-555-6789',
     email: 'davidkim@example.com',
-    language: 'Korean, English',
+    language: ['Korean, English'],
   },
   {
     id: 9,
@@ -143,7 +143,7 @@ const users: User[] = [
     country: 'İspanya',
     contact: '34-91-5556677',
     email: 'luisrodriguez@example.com',
-    language: 'Spanish, English',
+    language: ['Spanish, English'],
   },
   {
     id: 10,
@@ -158,7 +158,7 @@ const users: User[] = [
     country: 'Rusya',
     contact: '7-495-1234567',
     email: 'annapetrovna@example.com',
-    language: 'Russian, English',
+    language: ['Russian, English'],
   },
   {
     id: 11,
@@ -173,7 +173,7 @@ const users: User[] = [
     country: 'Arjantin',
     contact: '54-11-5555-6789',
     email: 'carlosfernandez@example.com',
-    language: 'Spanish, English',
+    language: ['Spanish, English'],
   },
   {
     id: 12,
@@ -188,7 +188,7 @@ const users: User[] = [
     country: 'Çin',
     contact: '+86-21-5555-1234',
     email: 'sophiachen@example.com',
-    language: 'Chinese, English',
+    language: ['Chinese, English'],
   },
   {
     id: 13,
@@ -203,7 +203,7 @@ const users: User[] = [
     country: 'Meksika',
     contact: '+52-55-5555-9876',
     email: 'pablogutierrez@example.com',
-    language: 'Spanish, English',
+    language: ['Spanish, English'],
   },
   {
     id: 14,
@@ -218,7 +218,7 @@ const users: User[] = [
     country: 'Rusya',
     contact: '7-812-9876543',
     email: 'olgaivanova@example.com',
-    language: 'Russian, English',
+    language: ['Russian, English'],
   },
   {
     id: 15,
@@ -233,7 +233,7 @@ const users: User[] = [
     country: 'Kanada',
     contact: '+1-416-555-7890',
     email: 'daniellee@example.com',
-    language: 'English',
+    language: ['English'],
   },
   {
     id: 16,
@@ -248,7 +248,7 @@ const users: User[] = [
     country: 'Polonya',
     contact: '+48-22-555-6789',
     email: 'elenakowalski@example.com',
-    language: 'Polish, English',
+    language: ['Polish, English'],
   },
   {
     id: 17,
@@ -263,7 +263,7 @@ const users: User[] = [
     country: 'Pakistan',
     contact: '+92-21-5555-1234',
     email: 'alikhan@example.com',
-    language: 'Urdu, English',
+    language: ['Urdu, English'],
   },
   {
     id: 18,
@@ -278,7 +278,7 @@ const users: User[] = [
     country: 'Brezilya',
     contact: '+55-11-5555-9876',
     email: 'isabellasilva@example.com',
-    language: 'Portuguese, English',
+    language: ['Portuguese, English'],
   },
   {
     id: 19,
@@ -293,7 +293,7 @@ const users: User[] = [
     country: 'Japonya',
     contact: '+81-3-5555-1234',
     email: 'hiroshitanaka@example.com',
-    language: 'Japanese, English',
+    language: ['Japanese, English'],
   },
   {
     id: 20,
@@ -308,7 +308,7 @@ const users: User[] = [
     country: 'İngiltere',
     contact: '44-20-12345678',
     email: 'juliasmith@example.com',
-    language: 'English',
+    language: ['English'],
   },
   {
     id: 21,
@@ -323,7 +323,7 @@ const users: User[] = [
     country: 'Kolombiya',
     contact: '+57-1-555-6789',
     email: 'juanlopez@example.com',
-    language: 'Spanish, English',
+    language: ['Spanish, English'],
   },
   {
     id: 22,
@@ -338,7 +338,7 @@ const users: User[] = [
     country: 'Avustralya',
     contact: '+61-2-5555-9876',
     email: 'miaanderson@example.com',
-    language: 'English',
+    language: ['English'],
   },
   {
     id: 23,
@@ -353,7 +353,7 @@ const users: User[] = [
     country: 'Meksika',
     contact: '+52-55-5555-1234',
     email: 'javierperez@example.com',
-    language: 'Spanish, English',
+    language: ['Spanish, English'],
   },
   {
     id: 24,
@@ -368,7 +368,7 @@ const users: User[] = [
     country: 'Çin',
     contact: '+86-21-5555-6789',
     email: 'lilychen@example.com',
-    language: 'Chinese, English',
+    language: ['Chinese, English'],
   },
   {
     id: 25,
@@ -383,7 +383,7 @@ const users: User[] = [
     country: 'Arjantin',
     contact: '54-11-5555-1234',
     email: 'joserodriguez@example.com',
-    language: 'Spanish, English',
+    language: ['Spanish, English'],
   },
   {
     id: 26,
@@ -398,7 +398,7 @@ const users: User[] = [
     country: 'İspanya',
     contact: '34-91-98765432',
     email: 'evagarcia@example.com',
-    language: 'Spanish, English',
+    language: ['Spanish, English'],
   },
   {
     id: 27,
@@ -413,7 +413,7 @@ const users: User[] = [
     country: 'Amerika',
     contact: '123-456-7890',
     email: 'aidenjohnson@example.com',
-    language: 'English',
+    language: ['English'],
 
   },
   {
@@ -429,7 +429,7 @@ const users: User[] = [
     country: 'Amerika',
     contact: '987-654-3210',
     email: 'avasmith@example.com',
-    language: 'English',
+    language: ['English'],
   },
   {
     id: 29,
@@ -444,7 +444,7 @@ const users: User[] = [
     country: 'Kanada',
     contact: '+1-416-555-1234',
     email: 'sophiewilson@example.com',
-    language: 'English',
+    language: ['English'],
   },
   {
     id: 30,
@@ -459,7 +459,7 @@ const users: User[] = [
     country: 'Mısır',
     contact: '+20-2-5555-6789',
     email: 'mohamedali@example.com',
-    language: 'Arabic, English',
+    language: ['Arabic, English'],
   },
   {
     id: 31,
@@ -474,7 +474,7 @@ const users: User[] = [
     country: 'İspanya',
     contact: '34-91-5556677',
     email: 'lauragarcia@example.com',
-    language: 'Spanish, English',
+    language: ['Spanish, English'],
   },
   {
     id: 32,
@@ -489,7 +489,7 @@ const users: User[] = [
     country: 'Arjantin',
     contact: '54-11-5555-1234',
     email: 'andreamartinez@example.com',
-    language: 'Spanish, English',
+    language: ['Spanish, English'],
   },
   {
     id: 33,
@@ -504,7 +504,7 @@ const users: User[] = [
     country: 'Güney Kore',
     contact: '02-555-6789',
     email: 'alexkim@example.com',
-    language: 'Korean, English',
+    language: ['Korean, English'],
   },
   {
     id: 34,
@@ -519,7 +519,7 @@ const users: User[] = [
     country: 'Meksika',
     contact: '+52-55-5555-9876',
     email: 'sofialopez@example.com',
-    language: 'Spanish, English',
+    language: ['Spanish, English'],
   },
   {
     id: 35,
@@ -534,7 +534,7 @@ const users: User[] = [
     country: 'Rusya',
     contact: '7-495-5556677',
     email: 'maximivanov@example.com',
-    language: 'Russian, English',
+    language: ['Russian, English'],
   },
   {
     id: 36,
@@ -549,7 +549,7 @@ const users: User[] = [
     country: 'Brezilya',
     contact: '+55-11-5555-1234',
     email: 'lunasilva@example.com',
-    language: 'Portuguese, English',
+    language: ['Portuguese, English'],
   },
   {
     id: 37,
@@ -564,7 +564,7 @@ const users: User[] = [
     country: 'Çin',
     contact: '+86-21-5555-6789',
     email: 'oscarli@example.com',
-    language: 'Chinese, English',
+    language: ['Chinese, English'],
   },
   {
     id: 38,
@@ -579,7 +579,7 @@ const users: User[] = [
     country: 'Güney Kore',
     contact: '02-555-1234',
     email: 'emmakim@example.com',
-    language: 'Korean, English',
+    language: ['Korean, English'],
   },
   {
     id: 39,
@@ -594,7 +594,7 @@ const users: User[] = [
     country: 'Amerika',
     contact: '987-123-4567',
     email: 'johnsmith@example.com',
-    language: 'English',
+    language: ['English'],
   },
   {
     id: 40,
@@ -609,7 +609,7 @@ const users: User[] = [
     country: 'Güney Kore',
     contact: '02-555-9876',
     email: 'sophiakim@example.com',
-    language: 'Korean, English',
+    language: ['Korean, English'],
   },
   {
     id: 41,
@@ -624,7 +624,7 @@ const users: User[] = [
     country: 'Almanya',
     contact: '49-30-5555-1234',
     email: 'maxmuller@example.com',
-    language: 'German, English',
+    language: ['German, English'],
   },
   {
     id: 42,
@@ -639,7 +639,7 @@ const users: User[] = [
     country: 'Çin',
     contact: '+86-21-5556677',
     email: 'oliviawang@example.com',
-    language: 'Chinese, English',
+    language: ['Chinese, English'],
   },
   {
     id: 43,
@@ -654,7 +654,7 @@ const users: User[] = [
     country: 'Mısır',
     contact: '+20-2-5555-1234',
     email: 'mohamedali@example.com',
-    language: 'Arabic, English',
+    language: ['Arabic, English'],
   },
   {
     id: 44,
@@ -669,7 +669,7 @@ const users: User[] = [
     country: 'İspanya',
     contact: '34-91-5555-6789',
     email: 'isabellagarcia@example.com',
-    language: 'Spanish, English',
+    language: ['Spanish, English'],
   },
   {
     id: 45,
@@ -684,7 +684,7 @@ const users: User[] = [
     country: 'Çin',
     contact: '+86-21-5555-9876',
     email: 'ethanchen@example.com',
-    language: 'Chinese, English',
+    language: ['Chinese, English'],
   },
   {
     id: 46,
@@ -699,7 +699,7 @@ const users: User[] = [
     country: 'Arjantin',
     contact: '54-11-5556677',
     email: 'miarodriguez@example.com',
-    language: 'Spanish, English',
+    language: ['Spanish, English'],
   },
   {
     id: 47,
@@ -714,7 +714,7 @@ const users: User[] = [
     country: 'Kanada',
     contact: '+1-416-5555-1234',
     email: 'liamsmith@example.com',
-    language: 'English',
+    language: ['English'],
   },
   {
     id: 48,
@@ -729,7 +729,7 @@ const users: User[] = [
     country: 'Almanya',
     contact: '49-30-5555-6789',
     email: 'oliviamuller@example.com',
-    language: 'German, English',
+    language: ['German, English'],
   },
 ]
 

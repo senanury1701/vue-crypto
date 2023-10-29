@@ -20,7 +20,7 @@ import { useStore } from 'vuex'
 } */
 const store = useStore()
 const route = useRoute()
-const userId = parseInt(route.params.id)
+const userId = parseInt(route.params.id.toString())
 const isUserInfoEditDialogVisible = ref(false)
 const userData = ref(null)
 
@@ -163,7 +163,13 @@ onMounted(async () => {
                       <span class="font-weight-medium">
                         language:
                       </span>
-                      <span class="text-body-2">{{ userData.language }}</span>
+                      <span
+                        v-for="(selectedLanguage, index) in userData.language"
+                        :key="index"
+                      >
+                        {{ selectedLanguage }}
+                        <span v-if="index < userData.language.length - 1">, </span>
+                      </span>
                     </VListItemTitle>
                   </VListItem>
                 </VList>

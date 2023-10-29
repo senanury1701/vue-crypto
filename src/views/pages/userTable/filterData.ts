@@ -46,3 +46,50 @@ export const positions = [
   'Marketing Specialist',
 
 ]
+
+export const languages = [
+  'English',
+  'Türkçe',
+  'İspanyolca',
+  'Arabic',
+  'French',
+  'Korean',
+  'Spanish',
+  'Russian',
+  'Polish',
+  'Urdu',
+  'Portuguese',
+  'Japanese',
+  'Chinese',
+  'German',
+]
+
+export const countryes = [
+  'İngiltere',
+  'Amerika',
+  'Türkiye',
+  'İstanbul',
+  'İspanya',
+  'Dubai',
+  'Birleşik Arap Emirlikleri',
+  'Fransa',
+  'Güney Kore',
+  'İspanya',
+  'Rusya',
+  'Arjantin',
+  'Shanghai',
+  'Mexico City',
+  'Kanada',
+  'Polonya',
+  'Pakistan',
+  'Brezilya',
+  'Japonya',
+  'Kolombiya',
+  'Avustralya',
+  'Meksika',
+  'Çin',
+  'İspanya',
+  'Mısır',
+  'Almanya',
+
+]

@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { useStore } from 'vuex'
 import Swal from 'sweetalert2'
-import { offices, positions } from '@/views/pages/userTable/filterData'
+import { VForm } from 'vuetify/components/VForm'
+import { countryes, languages, offices, positions } from '@/views/pages/userTable/filterData'
 import { emailValidator, requiredValidator } from '@validators'
 
 interface UserData {
@@ -32,16 +33,16 @@ interface Emit {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  userData: () => ({
-    id: '',
+  userData: (): UserData => ({
+    id: 0,
     name: '',
     position: '',
     office: '',
-    age: '',
+    age: 0,
     gender: '',
     startDate: '',
-    salary: '',
-    status: '',
+    salary: 0,
+    status: false,
     country: '',
     contact: '',
     email: '',
@@ -50,8 +51,9 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const emit = defineEmits<Emit>()
+const isFormValid = ref(false)
+const refForm = ref<VForm>()
 const store = useStore()
-
 const userData = ref<UserData>(structuredClone(toRaw(props.userData)))
 
 watch(props, () => {
@@ -68,27 +70,30 @@ const dialogVisibleUpdate = (val: boolean) => {
   emit('update:isDialogVisible', val)
 }
 
-const onFormSubmit = () => {
-  const data = {
-    name: userData.value.name,
-    position: userData.value.position,
-    office: userData.value.office,
-    startDate: userData.value.startDate,
-    age: userData.value.age,
-    gender: userData.value.gender,
-    salary: userData.value.salary,
-    status: userData.value.status,
-    country: userData.value.country,
-    contact: userData.value.contact,
-    email: userData.value.email,
-    language: userData.value.language,
-  }
+const onSubmit = () => {
+  refForm.value?.validate().then(({ valid: isValid }) => {
+    if (isValid) {
+      const data = {
+        name: userData.value.name,
+        position: userData.value.position,
+        office: userData.value.office,
+        startDate: userData.value.startDate,
+        age: userData.value.age,
+        gender: userData.value.gender,
+        salary: userData.value.salary,
+        status: userData.value.status,
+        country: userData.value.country,
+        contact: userData.value.contact,
+        email: userData.value.email,
+        language: userData.value.language,
+      }
 
-  store.dispatch('userData/toggleUserStatus', data)
-  Swal.fire('Guncellendi')
-
-  emit('update:isDialogVisible', false)
-  emit('submit', userData.value)
+      store.dispatch('userData/toggleUserStatus', data)
+      Swal.fire('Guncellendi')
+      emit('update:isDialogVisible', false)
+      emit('submit', userData.value)
+    }
+  })
 }
 </script>
 
@@ -115,8 +120,10 @@ const onFormSubmit = () => {
       <VCardText>
         <!-- 👉 Form -->
         <VForm
+          ref="refForm"
+          v-model="isFormValid"
           class="mt-6"
-          @submit.prevent="onFormSubmit"
+          @submit.prevent="onSubmit"
         >
           <VRow>
             <VCol
@@ -154,7 +161,7 @@ const onFormSubmit = () => {
               <VTextField
                 v-model="userData.email"
                 placeholder="Email"
-                :rules="[requiredValidator][emailValidator]"
+                :rules="[requiredValidator, emailValidator]"
               />
             </VCol>
 
@@ -190,10 +197,16 @@ const onFormSubmit = () => {
               md="6"
             >
               <h2> Language </h2>
-              <VTextField
+
+              <VSelect
                 v-model="userData.language"
-                placeholder="English"
-                :rules="[requiredValidator]"
+                :items="languages"
+                item-title="language"
+
+                placeholder="Select Item"
+                multiple
+                clearable
+                clear-icon="mdi-close"
               />
             </VCol>
 
@@ -203,9 +216,11 @@ const onFormSubmit = () => {
               md="6"
             >
               <h2> Country </h2>
-              <VTextField
+              <VAutocomplete
                 v-model="userData.country"
-                placeholder="United States"
+                :items="countryes"
+                placeholder="Select Offices"
+                :rules="[requiredValidator]"
               />
             </VCol>
 
