@@ -105,7 +105,6 @@ const swal = () => {
           status: status.value,
         }
 
-        console.log(userData)
         store.dispatch('userData/addUserData', userData)
         closeNavigationDrawer()
       }
@@ -196,7 +195,7 @@ const handleDrawerModelValueUpdate = (val: boolean) => {
                   <AppDateTimePicker
                     v-model="startDate"
                     placeholder="Select date"
-
+                    :rules="[requiredValidator]"
                     class="my-2"
                   />
                 </VCol>
@@ -218,7 +217,6 @@ const handleDrawerModelValueUpdate = (val: boolean) => {
                     :items="genderItem"
                     placeholder="Select gender"
                     :rules="[requiredValidator]"
-
                     class="my-2"
                   />
                 </VCol>

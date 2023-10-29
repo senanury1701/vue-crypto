@@ -1,18 +1,23 @@
 <script setup lang="ts">
+import { useStore } from 'vuex'
+import Swal from 'sweetalert2'
+import { offices, positions } from '@/views/pages/userTable/filterData'
+import { emailValidator, requiredValidator } from '@validators'
+
 interface UserData {
   id: number
   name: string
   position: string
+  email: string
   office: string
+  contact: string
+  language: string
+  country: string
+  startDate: string
   age: number
   gender: string
-  startDate: string
   salary: number
   status: boolean
-  country: string
-  contact: string
-  email: string
-  language: string
 
 }
 
@@ -45,18 +50,13 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const emit = defineEmits<Emit>()
+const store = useStore()
 
 const userData = ref<UserData>(structuredClone(toRaw(props.userData)))
-const isUseAsBillingAddress = ref(false)
 
 watch(props, () => {
-  userData.value = structuredClone(toRaw(props.userData))
+  userData.value = props.userData
 })
-
-const onFormSubmit = () => {
-  emit('update:isDialogVisible', false)
-  emit('submit', userData.value)
-}
 
 const onFormReset = () => {
   userData.value = structuredClone(toRaw(props.userData))
@@ -66,6 +66,29 @@ const onFormReset = () => {
 
 const dialogVisibleUpdate = (val: boolean) => {
   emit('update:isDialogVisible', val)
+}
+
+const onFormSubmit = () => {
+  const data = {
+    name: userData.value.name,
+    position: userData.value.position,
+    office: userData.value.office,
+    startDate: userData.value.startDate,
+    age: userData.value.age,
+    gender: userData.value.gender,
+    salary: userData.value.salary,
+    status: userData.value.status,
+    country: userData.value.country,
+    contact: userData.value.contact,
+    email: userData.value.email,
+    language: userData.value.language,
+  }
+
+  store.dispatch('userData/toggleUserStatus', data)
+  Swal.fire('Guncellendi')
+
+  emit('update:isDialogVisible', false)
+  emit('submit', userData.value)
 }
 </script>
 
@@ -96,15 +119,15 @@ const dialogVisibleUpdate = (val: boolean) => {
           @submit.prevent="onFormSubmit"
         >
           <VRow>
-            <!-- 👉 Full Name -->
             <VCol
               cols="12"
               md="6"
             >
+              <h2> Isim </h2>
               <VTextField
                 v-model="userData.name"
-                label="Full Name"
-                placeholder="John Doe"
+                placeholder="Name"
+                :rules="[requiredValidator]"
               />
             </VCol>
 
@@ -113,11 +136,12 @@ const dialogVisibleUpdate = (val: boolean) => {
               cols="12"
               md="6"
             >
+              <h2> Positions </h2>
               <VAutocomplete
                 v-model="userData.position"
                 :items="positions"
                 placeholder="Select Positions"
-                class="my-2"
+                :rules="[requiredValidator]"
               />
             </VCol>
 
@@ -126,22 +150,11 @@ const dialogVisibleUpdate = (val: boolean) => {
               cols="12"
               md="6"
             >
+              <h2> Email </h2>
               <VTextField
                 v-model="userData.email"
-                label="Billing Email"
-                placeholder="johndoe@email.com"
-              />
-            </VCol>
-
-            <!-- 👉 Status -->
-            <VCol
-              cols="12"
-              md="6"
-            >
-              <VTextField
-                v-model="userData.status"
-                label="Status"
-                placeholder="Active"
+                placeholder="Email"
+                :rules="[requiredValidator][emailValidator]"
               />
             </VCol>
 
@@ -150,10 +163,12 @@ const dialogVisibleUpdate = (val: boolean) => {
               cols="12"
               md="6"
             >
-              <VTextField
+              <h2> Office </h2>
+              <VAutocomplete
                 v-model="userData.office"
-                label="office"
-                placeholder="office"
+                :items="offices"
+                placeholder="Select Offices"
+                :rules="[requiredValidator]"
               />
             </VCol>
 
@@ -162,9 +177,9 @@ const dialogVisibleUpdate = (val: boolean) => {
               cols="12"
               md="6"
             >
+              <h2> Contact </h2>
               <VTextField
                 v-model="userData.contact"
-                label="Contact"
                 placeholder="+1 9876543210"
               />
             </VCol>
@@ -174,10 +189,11 @@ const dialogVisibleUpdate = (val: boolean) => {
               cols="12"
               md="6"
             >
+              <h2> Language </h2>
               <VTextField
                 v-model="userData.language"
-                label="Language"
                 placeholder="English"
+                :rules="[requiredValidator]"
               />
             </VCol>
 
@@ -186,19 +202,61 @@ const dialogVisibleUpdate = (val: boolean) => {
               cols="12"
               md="6"
             >
+              <h2> Country </h2>
               <VTextField
                 v-model="userData.country"
-                label="Country"
                 placeholder="United States"
+              />
+            </VCol>
+
+            <VCol
+              cols="12"
+              md="6"
+            >
+              <h2> Start Date </h2>
+              <AppDateTimePicker
+                v-model="userData.startDate"
+                placeholder="Select date"
+                :rules="[requiredValidator]"
+                class="my-2"
+              />
+            </VCol>
+
+            <VCol
+              cols="12"
+              md="6"
+            >
+              <h2> Age </h2>
+              <VTextField
+                v-model="userData.age"
+                type="number"
+                placeholder="30"
+                class="my-2"
+                :rules="[requiredValidator]"
+              />
+            </VCol>
+
+            <VCol
+              cols="12"
+              md="6"
+            >
+              <h2> Salary </h2>
+              <VTextField
+                v-model="userData.salary"
+                type="number"
+                placeholder="30"
+                :rules="[requiredValidator]"
+
+                class="my-2"
               />
             </VCol>
 
             <!-- 👉 Switch -->
             <VCol cols="12">
               <VSwitch
-                v-model="isUseAsBillingAddress"
+                v-model="userData.status"
                 density="compact"
-                label="Use as a billing address?"
+                label="hala calisiyormu?"
               />
             </VCol>
 

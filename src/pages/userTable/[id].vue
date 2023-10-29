@@ -39,7 +39,6 @@ onMounted(async () => {
     console.error('Kullanıcı getirme hatası:', error)
   }
 })
-console.log(userData)
 </script>
 
 <template>
