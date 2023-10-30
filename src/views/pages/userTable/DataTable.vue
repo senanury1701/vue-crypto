@@ -22,7 +22,7 @@ const deleteItem = (userId: number) => {
 
 const editItem = (user: any) => {
   userEditData.value = user
-  isAddNewUserDrawerVisible.value = true // Çekmeceyi açabilirsiniz.
+  isAddNewUserDrawerVisible.value = true
 }
 
 const addUser = () => {
@@ -73,7 +73,7 @@ const headers = [
 <template>
   <div>
     <VCard>
-      <VCardText class="d-flex align-center flex-wrap gap-4">
+      <VCardText class="d-flex align-center  gap-4">
         <div class="me-3">
           <VBtn
             :disabled="!selectedRows.length"

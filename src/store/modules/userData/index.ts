@@ -7,6 +7,11 @@ export interface User {
   gender: string
   startDate: string
   salary: number
+  status: boolean
+  country: string
+  contact: string
+  email: string
+  language: array
 }
 
 const users: User[] = [
@@ -21,7 +26,7 @@ const users: User[] = [
     salary: 75000,
     status: true,
     country: 'İngiltere',
-    contact: '123-456-7890',
+    contact: '1234567890',
     email: 'johndoe@example.com',
     language: ['English'],
   },
@@ -36,7 +41,7 @@ const users: User[] = [
     salary: 80000,
     status: true,
     country: 'Amerika',
-    contact: '987-654-3210',
+    contact: '9876543210',
     email: 'alicesmith@example.com',
     language: ['English'],
   },
@@ -51,7 +56,7 @@ const users: User[] = [
     salary: 85000,
     status: true,
     country: 'Türkiye',
-    contact: '555-555-5555',
+    contact: '5555555555',
     email: 'mehmetyilmaz@example.com',
     language: ['Türkçe, İngilizce'],
   },
@@ -66,7 +71,7 @@ const users: User[] = [
     salary: 72000,
     status: false,
     country: 'İspanya',
-    contact: '123-987-4560',
+    contact: '1239874560',
     email: 'mariagarcia@example.com',
     language: ['İspanyolca, İngilizce'],
   },
@@ -81,7 +86,7 @@ const users: User[] = [
     salary: 85000,
     status: true,
     country: 'Amerika',
-    contact: '555-123-7890',
+    contact: '5551237890',
     email: 'emmajohnson@example.com',
     language: ['English'],
   },
@@ -96,7 +101,7 @@ const users: User[] = [
     salary: 90000,
     status: true,
     country: 'Birleşik Arap Emirlikleri',
-    contact: '+971-50-123-4567',
+    contact: '+971501234567',
     email: 'ahmedmohamed@example.com',
     language: ['Arabic, English'],
   },
@@ -111,7 +116,7 @@ const users: User[] = [
     salary: 95000,
     status: false,
     country: 'Fransa',
-    contact: '33-1-98765432',
+    contact: '33198765432',
     email: 'sophiemartin@example.com',
     language: ['French, English'],
   },
@@ -126,7 +131,7 @@ const users: User[] = [
     salary: 88000,
     status: true,
     country: 'Güney Kore',
-    contact: '02-555-6789',
+    contact: '025556789',
     email: 'davidkim@example.com',
     language: ['Korean, English'],
   },
@@ -141,7 +146,7 @@ const users: User[] = [
     salary: 75000,
     status: true,
     country: 'İspanya',
-    contact: '34-91-5556677',
+    contact: '34915556677',
     email: 'luisrodriguez@example.com',
     language: ['Spanish, English'],
   },
@@ -156,7 +161,7 @@ const users: User[] = [
     salary: 72000,
     status: true,
     country: 'Rusya',
-    contact: '7-495-1234567',
+    contact: '74951234567',
     email: 'annapetrovna@example.com',
     language: ['Russian, English'],
   },
@@ -171,7 +176,7 @@ const users: User[] = [
     salary: 78000,
     status: true,
     country: 'Arjantin',
-    contact: '54-11-5555-6789',
+    contact: '541155556789',
     email: 'carlosfernandez@example.com',
     language: ['Spanish, English'],
   },
@@ -186,7 +191,7 @@ const users: User[] = [
     salary: 70000,
     status: true,
     country: 'Çin',
-    contact: '+86-21-5555-1234',
+    contact: '+862155551234',
     email: 'sophiachen@example.com',
     language: ['Chinese, English'],
   },
@@ -201,7 +206,7 @@ const users: User[] = [
     salary: 82000,
     status: true,
     country: 'Meksika',
-    contact: '+52-55-5555-9876',
+    contact: '+525555559876',
     email: 'pablogutierrez@example.com',
     language: ['Spanish, English'],
   },
@@ -216,7 +221,7 @@ const users: User[] = [
     salary: 71000,
     status: true,
     country: 'Rusya',
-    contact: '7-812-9876543',
+    contact: '78129876543',
     email: 'olgaivanova@example.com',
     language: ['Russian, English'],
   },
@@ -231,7 +236,7 @@ const users: User[] = [
     salary: 80000,
     status: true,
     country: 'Kanada',
-    contact: '+1-416-555-7890',
+    contact: '+14165557890',
     email: 'daniellee@example.com',
     language: ['English'],
   },
@@ -246,7 +251,7 @@ const users: User[] = [
     salary: 75000,
     status: true,
     country: 'Polonya',
-    contact: '+48-22-555-6789',
+    contact: '+48225556789',
     email: 'elenakowalski@example.com',
     language: ['Polish, English'],
   },
@@ -261,7 +266,7 @@ const users: User[] = [
     salary: 85000,
     status: true,
     country: 'Pakistan',
-    contact: '+92-21-5555-1234',
+    contact: '+922155551234',
     email: 'alikhan@example.com',
     language: ['Urdu, English'],
   },
@@ -276,7 +281,7 @@ const users: User[] = [
     salary: 72000,
     status: true,
     country: 'Brezilya',
-    contact: '+55-11-5555-9876',
+    contact: '+551155559876',
     email: 'isabellasilva@example.com',
     language: ['Portuguese, English'],
   },
@@ -291,7 +296,7 @@ const users: User[] = [
     salary: 73000,
     status: true,
     country: 'Japonya',
-    contact: '+81-3-5555-1234',
+    contact: '+81355551234',
     email: 'hiroshitanaka@example.com',
     language: ['Japanese, English'],
   },
@@ -306,7 +311,7 @@ const users: User[] = [
     salary: 90000,
     status: true,
     country: 'İngiltere',
-    contact: '44-20-12345678',
+    contact: '442012345678',
     email: 'juliasmith@example.com',
     language: ['English'],
   },
@@ -321,7 +326,7 @@ const users: User[] = [
     salary: 78000,
     status: true,
     country: 'Kolombiya',
-    contact: '+57-1-555-6789',
+    contact: '+5715556789',
     email: 'juanlopez@example.com',
     language: ['Spanish, English'],
   },
@@ -336,7 +341,7 @@ const users: User[] = [
     salary: 76000,
     status: true,
     country: 'Avustralya',
-    contact: '+61-2-5555-9876',
+    contact: '+61255559876',
     email: 'miaanderson@example.com',
     language: ['English'],
   },
@@ -351,7 +356,7 @@ const users: User[] = [
     salary: 80000,
     status: true,
     country: 'Meksika',
-    contact: '+52-55-5555-1234',
+    contact: '+525555551234',
     email: 'javierperez@example.com',
     language: ['Spanish, English'],
   },
@@ -366,7 +371,7 @@ const users: User[] = [
     salary: 82000,
     status: true,
     country: 'Çin',
-    contact: '+86-21-5555-6789',
+    contact: '+862155556789',
     email: 'lilychen@example.com',
     language: ['Chinese, English'],
   },
@@ -381,7 +386,7 @@ const users: User[] = [
     salary: 85000,
     status: true,
     country: 'Arjantin',
-    contact: '54-11-5555-1234',
+    contact: '541155551234',
     email: 'joserodriguez@example.com',
     language: ['Spanish, English'],
   },
@@ -396,7 +401,7 @@ const users: User[] = [
     salary: 78000,
     status: true,
     country: 'İspanya',
-    contact: '34-91-98765432',
+    contact: '349198765432',
     email: 'evagarcia@example.com',
     language: ['Spanish, English'],
   },
@@ -411,7 +416,7 @@ const users: User[] = [
     salary: 75000,
     status: true,
     country: 'Amerika',
-    contact: '123-456-7890',
+    contact: '1234567890',
     email: 'aidenjohnson@example.com',
     language: ['English'],
 
@@ -427,7 +432,7 @@ const users: User[] = [
     salary: 80000,
     status: true,
     country: 'Amerika',
-    contact: '987-654-3210',
+    contact: '9876543210',
     email: 'avasmith@example.com',
     language: ['English'],
   },
@@ -442,7 +447,7 @@ const users: User[] = [
     salary: 77000,
     status: true,
     country: 'Kanada',
-    contact: '+1-416-555-1234',
+    contact: '+14165551234',
     email: 'sophiewilson@example.com',
     language: ['English'],
   },
@@ -457,7 +462,7 @@ const users: User[] = [
     salary: 79000,
     status: true,
     country: 'Mısır',
-    contact: '+20-2-5555-6789',
+    contact: '+20255556789',
     email: 'mohamedali@example.com',
     language: ['Arabic, English'],
   },
@@ -472,7 +477,7 @@ const users: User[] = [
     salary: 76000,
     status: true,
     country: 'İspanya',
-    contact: '34-91-5556677',
+    contact: '34915556677',
     email: 'lauragarcia@example.com',
     language: ['Spanish, English'],
   },
@@ -487,7 +492,7 @@ const users: User[] = [
     salary: 82000,
     status: true,
     country: 'Arjantin',
-    contact: '54-11-5555-1234',
+    contact: '541155551234',
     email: 'andreamartinez@example.com',
     language: ['Spanish, English'],
   },
@@ -502,7 +507,7 @@ const users: User[] = [
     salary: 84000,
     status: true,
     country: 'Güney Kore',
-    contact: '02-555-6789',
+    contact: '025556789',
     email: 'alexkim@example.com',
     language: ['Korean, English'],
   },
@@ -517,7 +522,7 @@ const users: User[] = [
     salary: 78000,
     status: true,
     country: 'Meksika',
-    contact: '+52-55-5555-9876',
+    contact: '+525555559876',
     email: 'sofialopez@example.com',
     language: ['Spanish, English'],
   },
@@ -532,7 +537,7 @@ const users: User[] = [
     salary: 80000,
     status: true,
     country: 'Rusya',
-    contact: '7-495-5556677',
+    contact: '74955556677',
     email: 'maximivanov@example.com',
     language: ['Russian, English'],
   },
@@ -547,7 +552,7 @@ const users: User[] = [
     salary: 77000,
     status: true,
     country: 'Brezilya',
-    contact: '+55-11-5555-1234',
+    contact: '+551155551234',
     email: 'lunasilva@example.com',
     language: ['Portuguese, English'],
   },
@@ -562,7 +567,7 @@ const users: User[] = [
     salary: 82000,
     status: true,
     country: 'Çin',
-    contact: '+86-21-5555-6789',
+    contact: '+862155556789',
     email: 'oscarli@example.com',
     language: ['Chinese, English'],
   },
@@ -577,7 +582,7 @@ const users: User[] = [
     salary: 76000,
     status: true,
     country: 'Güney Kore',
-    contact: '02-555-1234',
+    contact: '025551234',
     email: 'emmakim@example.com',
     language: ['Korean, English'],
   },
@@ -592,7 +597,7 @@ const users: User[] = [
     salary: 88000,
     status: true,
     country: 'Amerika',
-    contact: '987-123-4567',
+    contact: '9871234567',
     email: 'johnsmith@example.com',
     language: ['English'],
   },
@@ -607,7 +612,7 @@ const users: User[] = [
     salary: 77000,
     status: true,
     country: 'Güney Kore',
-    contact: '02-555-9876',
+    contact: '025559876',
     email: 'sophiakim@example.com',
     language: ['Korean, English'],
   },
@@ -622,7 +627,7 @@ const users: User[] = [
     salary: 89000,
     status: true,
     country: 'Almanya',
-    contact: '49-30-5555-1234',
+    contact: '493055551234',
     email: 'maxmuller@example.com',
     language: ['German, English'],
   },
@@ -637,7 +642,7 @@ const users: User[] = [
     salary: 78000,
     status: true,
     country: 'Çin',
-    contact: '+86-21-5556677',
+    contact: '+86215556677',
     email: 'oliviawang@example.com',
     language: ['Chinese, English'],
   },
@@ -652,7 +657,7 @@ const users: User[] = [
     salary: 76000,
     status: true,
     country: 'Mısır',
-    contact: '+20-2-5555-1234',
+    contact: '+20255551234',
     email: 'mohamedali@example.com',
     language: ['Arabic, English'],
   },
@@ -667,7 +672,7 @@ const users: User[] = [
     salary: 80000,
     status: true,
     country: 'İspanya',
-    contact: '34-91-5555-6789',
+    contact: '349155556789',
     email: 'isabellagarcia@example.com',
     language: ['Spanish, English'],
   },
@@ -682,7 +687,7 @@ const users: User[] = [
     salary: 85000,
     status: true,
     country: 'Çin',
-    contact: '+86-21-5555-9876',
+    contact: '+862155559876',
     email: 'ethanchen@example.com',
     language: ['Chinese, English'],
   },
@@ -697,7 +702,7 @@ const users: User[] = [
     salary: 77000,
     status: true,
     country: 'Arjantin',
-    contact: '54-11-5556677',
+    contact: '54115556677',
     email: 'miarodriguez@example.com',
     language: ['Spanish, English'],
   },
@@ -712,7 +717,7 @@ const users: User[] = [
     salary: 89000,
     status: true,
     country: 'Kanada',
-    contact: '+1-416-5555-1234',
+    contact: '+141655551234',
     email: 'liamsmith@example.com',
     language: ['English'],
   },
@@ -727,7 +732,7 @@ const users: User[] = [
     salary: 78000,
     status: true,
     country: 'Almanya',
-    contact: '49-30-5555-6789',
+    contact: '493055556789',
     email: 'oliviamuller@example.com',
     language: ['German, English'],
   },
@@ -739,25 +744,35 @@ const state = {
 }
 
 const mutations = {
-  addUser(state, newUser) {
+  addUser(_, newUser) {
     const lastUserId = Math.max(...state.users.map(user => user.id))
 
     newUser.id = lastUserId + 1
     state.users.push(newUser)
   },
-  deleteUser(state, userId) {
+  deleteUser(_, userId) {
     state.users = state.users.filter(user => user.id !== userId)
   },
 
   // kullanici bilgilerini duzenlemek
-  updateUser(state, updatedUser) {
+  updateUser(_, updatedUser) {
     const index = state.users.findIndex(user => user.id === updatedUser.id)
     if (index !== -1)
       state.users[index] = updatedUser
   },
 
-  setFilteredProducts(state, selectedAll) {
+  setFilteredProducts(_, selectedAll) {
     state.filteredData = null
+
+    if (selectedAll.selectedStatus !== 1 && selectedAll.selectedStatus !== 2)
+      selectedAll.selectedStatus = undefined
+    if (selectedAll.selectedStatus === 1)
+      selectedAll.selectedStatus = false
+    if (selectedAll.selectedStatus === 2)
+      selectedAll.selectedStatus = true
+
+    console.log(selectedAll.selectedStatus)
+
     state.filteredData = state.users.filter(user => {
       if (selectedAll.selectedAmount !== undefined && user.salary <= selectedAll.selectedAmount)
         return false
@@ -791,12 +806,12 @@ const actions = {
   toggleUserStatus({ commit }, user) {
     commit('updateUser', user)
   },
-  getUser({ state }, userId) {
+  getUser(_, userId) {
     return new Promise<User | null>(resolve => {
-      const user = state.users.find(user => user.id === userId)
+      const selectedUser = state.users.find(user => user.id === userId)
 
-      if (user)
-        resolve(user)
+      if (selectedUser)
+        resolve(selectedUser)
     })
   },
   filterData({ commit }, selectedAll) {

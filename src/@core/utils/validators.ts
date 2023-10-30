@@ -115,3 +115,12 @@ export const alphaDashValidator = (value: unknown) => {
 
   return /^[0-9A-Z _-]*$/i.test(valueAsString) || 'All Characters are not valid'
 }
+export const numericStringValidator = (value: unknown) => {
+  if (isEmpty(value))
+    return true // Boş değer kabul edilir.
+
+  if (Array.isArray(value))
+    return value.every(val => /^[0-9]+$/.test(String(val)) || 'This field must contain only numeric characters')
+
+  return /^[0-9]+$/.test(String(value)) || 'This field must contain only numeric characters'
+}

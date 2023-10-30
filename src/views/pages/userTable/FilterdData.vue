@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useStore } from 'vuex'
+import { number } from 'yup'
 import { offices, positions } from './filterData'
 
 const store = useStore()
@@ -11,8 +12,8 @@ const selectedStatus = ref()
 const selectedPosition = ref()
 
 const status = [
-  { title: 'Active', value: true },
-  { title: 'Passive', value: false },
+  { title: 'Active', value: 2 },
+  { title: 'Passive', value: 1 },
 ]
 
 const updateFilter = () => {
@@ -20,7 +21,7 @@ const updateFilter = () => {
     selectedAmount: undefined,
     selectedDate: undefined,
     selectedOffice: undefined,
-    selectedStatus: selectedStatus.value === 'active' ? true : selectedStatus.value === 'passive' ? false : undefined,
+    selectedStatus: number,
     selectedPosition: undefined,
   }
 
@@ -39,7 +40,6 @@ const updateFilter = () => {
   if (selectedStatus.value)
     selectedAll.selectedStatus = selectedStatus.value
 
-  console.log(selectedAll.selectedStatus)
   store.dispatch('userData/filterData', selectedAll)
 }
 </script>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useStore } from 'vuex'
 
-/* interface Props {
+interface Props {
   userData: {
     id: number
     name: string
@@ -17,23 +17,21 @@ import { useStore } from 'vuex'
     email: string
     language: string
   }
-} */
+}
 const store = useStore()
 const route = useRoute()
 const userId = parseInt(route.params.id.toString())
 const isUserInfoEditDialogVisible = ref(false)
-const userData = ref(null)
+const userData = ref<Props>()
 
 onMounted(async () => {
   try {
     const user = await store.dispatch('userData/getUser', userId)
-    if (user) {
-      console.log('Kullanıcı bulundu:')
-      console.log(user)
-      userData.value = user
-    }
+    if (user)
 
-    else { console.log('Kullanıcı bulunamadı.') }
+      userData.value = user
+
+    else console.log('Kullanıcı bulunamadı.')
   }
   catch (error) {
     console.error('Kullanıcı getirme hatası:', error)
@@ -46,12 +44,11 @@ onMounted(async () => {
     <VRow>
       <VCol cols="12">
         <VCard v-if="userData">
-          <IconBtn :to="{ name: 'userTable' }">
-            <VIcon
-              icon="
-            mdi-backspace-outline"
-            />
-          </IconBtn>
+          <VCardItem>
+            <IconBtn :to="{ name: 'userTable' }">
+              <VIcon icon=" mdi-backspace-outline" />
+            </IconBtn>
+          </VCardItem>
           <VCardText class="text-center pt-15">
             <h6 class="text-h6 mt-4">
               {{ userData.name }}
@@ -129,7 +126,7 @@ onMounted(async () => {
                       <span class="font-weight-medium">
                         status:
                       </span>
-                      <span class="text-body-2">{{ userData.status }}</span>
+                      <span class="text-body-2">{{ userData.status ? 'active' : 'passive' }}</span>
                     </VListItemTitle>
                   </VListItem>
 
@@ -168,7 +165,8 @@ onMounted(async () => {
                         :key="index"
                       >
                         {{ selectedLanguage }}
-                        <span v-if="index < userData.language.length - 1">, </span>
+                        <p v-if="index < userData.language.length - 1">, </p>
+
                       </span>
                     </VListItemTitle>
                   </VListItem>
@@ -183,12 +181,6 @@ onMounted(async () => {
               @click="isUserInfoEditDialogVisible = true"
             >
               Edit
-            </VBtn>
-            <VBtn
-              variant="outlined"
-              color="error"
-            >
-              Suspend
             </VBtn>
           </VCardText>
         </VCard>

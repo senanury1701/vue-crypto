@@ -44,13 +44,13 @@ const isAddNewUserDrawerVisible = ref(false)
         <NavbarThemeSwitcher />
 
         <VSpacer />
-        <VIconBtn
+        <IconBtn
 
           class="mx-5"
           @click="isAddNewUserDrawerVisible = true"
         >
           <VIcon icon="mdi-user-plus" />
-        </VIconBtn>
+        </IconBtn>
 
         <UserProfile />
       </div>

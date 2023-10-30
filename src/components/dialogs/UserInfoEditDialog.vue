@@ -3,7 +3,7 @@ import { useStore } from 'vuex'
 import Swal from 'sweetalert2'
 import { VForm } from 'vuetify/components/VForm'
 import { countryes, languages, offices, positions } from '@/views/pages/userTable/filterData'
-import { emailValidator, requiredValidator } from '@validators'
+import { emailValidator, numericStringValidator, requiredValidator } from '@validators'
 
 interface UserData {
   id: number
@@ -33,7 +33,7 @@ interface Emit {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  userData: (): UserData => ({
+  userData: () => ({
     id: 0,
     name: '',
     position: '',
@@ -54,10 +54,15 @@ const emit = defineEmits<Emit>()
 const isFormValid = ref(false)
 const refForm = ref<VForm>()
 const store = useStore()
+
+console.log(props.userData)
+
 const userData = ref<UserData>(structuredClone(toRaw(props.userData)))
 
+const tempData = userData
+
 watch(props, () => {
-  userData.value = props.userData
+  userData.value = structuredClone(toRaw(props.userData))
 })
 
 const onFormReset = () => {
@@ -74,24 +79,24 @@ const onSubmit = () => {
   refForm.value?.validate().then(({ valid: isValid }) => {
     if (isValid) {
       const data = {
-        name: userData.value.name,
-        position: userData.value.position,
-        office: userData.value.office,
-        startDate: userData.value.startDate,
-        age: userData.value.age,
-        gender: userData.value.gender,
-        salary: userData.value.salary,
-        status: userData.value.status,
-        country: userData.value.country,
-        contact: userData.value.contact,
-        email: userData.value.email,
-        language: userData.value.language,
+        name: tempData.value.name,
+        position: tempData.value.position,
+        office: tempData.value.office,
+        startDate: tempData.value.startDate,
+        age: tempData.value.age,
+        gender: tempData.value.gender,
+        salary: tempData.value.salary,
+        status: tempData.value.status,
+        country: tempData.value.country,
+        contact: tempData.value.contact,
+        email: tempData.value.email,
+        language: tempData.value.language,
       }
 
       store.dispatch('userData/toggleUserStatus', data)
       Swal.fire('Guncellendi')
       emit('update:isDialogVisible', false)
-      emit('submit', userData.value)
+      emit('submit', tempData.value)
     }
   })
 }
@@ -104,7 +109,6 @@ const onSubmit = () => {
     @update:model-value="dialogVisibleUpdate"
   >
     <VCard class="pa-sm-9 pa-5">
-      <!-- 👉 dialog close btn -->
       <DialogCloseBtn
         variant="text"
         size="small"
@@ -132,7 +136,7 @@ const onSubmit = () => {
             >
               <h2> Isim </h2>
               <VTextField
-                v-model="userData.name"
+                v-model="tempData.name"
                 placeholder="Name"
                 :rules="[requiredValidator]"
               />
@@ -145,7 +149,7 @@ const onSubmit = () => {
             >
               <h2> Positions </h2>
               <VAutocomplete
-                v-model="userData.position"
+                v-model="tempData.position"
                 :items="positions"
                 placeholder="Select Positions"
                 :rules="[requiredValidator]"
@@ -159,7 +163,7 @@ const onSubmit = () => {
             >
               <h2> Email </h2>
               <VTextField
-                v-model="userData.email"
+                v-model="tempData.email"
                 placeholder="Email"
                 :rules="[requiredValidator, emailValidator]"
               />
@@ -172,7 +176,7 @@ const onSubmit = () => {
             >
               <h2> Office </h2>
               <VAutocomplete
-                v-model="userData.office"
+                v-model="tempData.office"
                 :items="offices"
                 placeholder="Select Offices"
                 :rules="[requiredValidator]"
@@ -185,9 +189,11 @@ const onSubmit = () => {
               md="6"
             >
               <h2> Contact </h2>
+
               <VTextField
-                v-model="userData.contact"
-                placeholder="+1 9876543210"
+                v-model="tempData.contact"
+                prepend-inner-icon="mdi-cellphone"
+                :rules="[numericStringValidator]"
               />
             </VCol>
 
@@ -199,7 +205,7 @@ const onSubmit = () => {
               <h2> Language </h2>
 
               <VSelect
-                v-model="userData.language"
+                v-model="tempData.language"
                 :items="languages"
                 item-title="language"
 
@@ -217,7 +223,7 @@ const onSubmit = () => {
             >
               <h2> Country </h2>
               <VAutocomplete
-                v-model="userData.country"
+                v-model="tempData.country"
                 :items="countryes"
                 placeholder="Select Offices"
                 :rules="[requiredValidator]"
@@ -230,7 +236,7 @@ const onSubmit = () => {
             >
               <h2> Start Date </h2>
               <AppDateTimePicker
-                v-model="userData.startDate"
+                v-model="tempData.startDate"
                 placeholder="Select date"
                 :rules="[requiredValidator]"
                 class="my-2"
@@ -243,7 +249,7 @@ const onSubmit = () => {
             >
               <h2> Age </h2>
               <VTextField
-                v-model="userData.age"
+                v-model="tempData.age"
                 type="number"
                 placeholder="30"
                 class="my-2"
@@ -257,7 +263,7 @@ const onSubmit = () => {
             >
               <h2> Salary </h2>
               <VTextField
-                v-model="userData.salary"
+                v-model="tempData.salary"
                 type="number"
                 placeholder="30"
                 :rules="[requiredValidator]"
@@ -269,7 +275,7 @@ const onSubmit = () => {
             <!-- 👉 Switch -->
             <VCol cols="12">
               <VSwitch
-                v-model="userData.status"
+                v-model="tempData.status"
                 density="compact"
                 label="hala calisiyormu?"
               />
@@ -287,6 +293,7 @@ const onSubmit = () => {
               <VBtn
                 color="secondary"
                 variant="outlined"
+
                 @click="onFormReset"
               >
                 Cancel
