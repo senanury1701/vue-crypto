@@ -28,6 +28,7 @@ const ballance = ref(Object.fromEntries(
   ),
 ))
 
+console.log(ballance)
 watch(userBallance, newBalance => {
   ballance.value = Object.fromEntries(
     Object.entries(newBalance).filter(item => item[1] !== 0),

@@ -5,12 +5,16 @@ import Swal from 'sweetalert2'
 import AddNewUserDrawer from './DataPanel.vue'
 
 const store = useStore()
-const usersData = computed(() => store.state.userData.users)
-const filterData = computed(() => store.state.userData.filteredData)
+const filterData = ref([])
 const search = ref('')
 const isAddNewUserDrawerVisible = ref(false)
 const userEditData = ref()
 const selectedRows = ref<string[]>([])
+
+watchEffect(() => {
+  // userData.state.filteredData'i izleyerek filterData'ya kopyala
+  filterData.value = store.state.userData.filteredData
+})
 
 const toggleStatus = (user: object) => {
   store.dispatch('userData/toggleUserStatus', user)
@@ -20,7 +24,7 @@ const deleteItem = (userId: number) => {
   store.dispatch('userData/deleteUserData', userId)
 }
 
-const editItem = (user: any) => {
+const editItem = (user: object) => {
   userEditData.value = user
   isAddNewUserDrawerVisible.value = true
 }
@@ -44,7 +48,7 @@ const swal = (userId: number) => Swal.fire({
 })
 
 const selectedDelete = () => {
-  if (selectedRows.length === 0)
+  if (selectedRows.value.length === 0)
     return
 
   const selectedIds = selectedRows.value.map(selectedId => parseInt(selectedId))
@@ -110,7 +114,7 @@ const headers = [
       <VDataTable
         v-model="selectedRows"
         :headers="headers"
-        :items="filterData ? filterData : usersData"
+        :items="filterData"
         :search="search"
         :items-per-page="5"
         show-select

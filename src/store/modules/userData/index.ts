@@ -740,7 +740,7 @@ const users: User[] = [
 
 const state = {
   users,
-  filteredData: null,
+  filteredData: users,
 }
 
 const mutations = {
@@ -749,45 +749,29 @@ const mutations = {
 
     newUser.id = lastUserId + 1
     state.users.push(newUser)
+    state.filteredData.value = [...state.users]
   },
   deleteUser(_, userId) {
     state.users = state.users.filter(user => user.id !== userId)
+    state.filteredData.value = [...state.users]
   },
 
-  // kullanici bilgilerini duzenlemek
   updateUser(_, updatedUser) {
     const index = state.users.findIndex(user => user.id === updatedUser.id)
     if (index !== -1)
       state.users[index] = updatedUser
+    state.filteredData.value = [...state.users]
   },
 
-  setFilteredProducts(_, selectedAll) {
-    state.filteredData = null
-
-    if (selectedAll.selectedStatus !== 1 && selectedAll.selectedStatus !== 2)
-      selectedAll.selectedStatus = undefined
-    if (selectedAll.selectedStatus === 1)
-      selectedAll.selectedStatus = false
-    if (selectedAll.selectedStatus === 2)
-      selectedAll.selectedStatus = true
-
-    console.log(selectedAll.selectedStatus)
-
-    state.filteredData = state.users.filter(user => {
-      if (selectedAll.selectedAmount !== undefined && user.salary <= selectedAll.selectedAmount)
-        return false
-
-      if (selectedAll.selectedDate !== undefined && user.startDate !== selectedAll.selectedDate)
-        return false
-
-      if (selectedAll.selectedOffice !== undefined && user.office !== selectedAll.selectedOffice)
-        return false
-
-      if (selectedAll.selectedStatus !== undefined && user.status !== selectedAll.selectedStatus)
-        return false
-
-      if (selectedAll.selectedPosition !== undefined && user.position !== selectedAll.selectedPosition)
-        return false
+  setFilteredProducts(_, transformedData) {
+    state.filteredData = state.users
+    state.filteredData = state.users.filter(data => {
+      for (const filter of transformedData) {
+        if (filter.filter === null)
+          continue
+        if (data[filter.label] !== filter.filter)
+          return false
+      }
 
       return true
     })
@@ -814,69 +798,15 @@ const actions = {
         resolve(selectedUser)
     })
   },
-  filterData({ commit }, selectedAll) {
-    commit('setFilteredProducts', selectedAll)
+  filterData({ commit }, transformedData) {
+    commit('setFilteredProducts', transformedData)
   },
 }
 
 export default {
-  namespaced: true, // Bu modülün isim alanını açıklayan bir seçenek
+  namespaced: true,
   state,
   mutations,
   actions,
+
 }
-
-/* const store = createStore({
-  state: {
-    users,
-  },
-  mutations: {
-    addUser(state, newUser) {
-      state.users.push(newUser)
-    },
-    deleteUser(state, userId) {
-      console.log('geldi')
-
-      // state.users = state.users.filter(user => user.id !== userId)
-    },
-
-    // kullanici bilgilerini duzenlemek
-    updateUser(state, updatedUser) {
-      const index = state.users.findIndex(user => user.id === updatedUser.id)
-      if (index !== -1)
-        state.users[index] = updatedUser
-    },
-    setFilterd(state) {
-      if (state.filterCategory) {
-        state.filteredProducts = state.products.filter(
-          product => product.category === state.filterCategory,
-        )
-      }
-      else {
-        state.filteredProducts = state.products
-      }
-    },
-  },
-  actions: {
-    addUserData({ commit }, newUser) {
-      commit('addUser', newUser)
-    },
-    deleteUserData({ commit }, userId) {
-      commit('deleteUser', userId)
-    },
-    toggleUserStatus({ commit }, user) {
-      commit('updateUser', user)
-    },
-    getUser({ state }, userId) {
-      // Kullanıcıyı kimliğine göre bul
-      const user = state.users.find(user => user.id === userId)
-
-      return Promise.resolve({ data: user })
-    },
-
-  },
-
-})
-
-export default store
- */
