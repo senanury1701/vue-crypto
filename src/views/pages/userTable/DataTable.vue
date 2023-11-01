@@ -5,16 +5,11 @@ import Swal from 'sweetalert2'
 import AddNewUserDrawer from './DataPanel.vue'
 
 const store = useStore()
-const filterData = ref([])
+const filterData = ref(store.state.userData.filteredData)
 const search = ref('')
 const isAddNewUserDrawerVisible = ref(false)
 const userEditData = ref()
 const selectedRows = ref<string[]>([])
-
-watchEffect(() => {
-  // userData.state.filteredData'i izleyerek filterData'ya kopyala
-  filterData.value = store.state.userData.filteredData
-})
 
 const toggleStatus = (user: object) => {
   store.dispatch('userData/toggleUserStatus', user)
@@ -22,16 +17,31 @@ const toggleStatus = (user: object) => {
 
 const deleteItem = (userId: number) => {
   store.dispatch('userData/deleteUserData', userId)
+  nextTick(() => {
+    const updatedData = store.state.userData.filteredData
+
+    filterData.value = updatedData
+  })
 }
 
 const editItem = (user: object) => {
   userEditData.value = user
   isAddNewUserDrawerVisible.value = true
+  nextTick(() => {
+    const updatedData = store.state.userData.filteredData
+
+    filterData.value = updatedData
+  })
 }
 
 const addUser = () => {
   userEditData.value = null
   isAddNewUserDrawerVisible.value = true
+  nextTick(() => {
+    const updatedData = store.state.userData.filteredData
+
+    filterData.value = updatedData
+  })
 }
 
 const swal = (userId: number) => Swal.fire({

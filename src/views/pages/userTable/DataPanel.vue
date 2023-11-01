@@ -89,6 +89,11 @@ const swal = () => {
         }
 
         store.dispatch('userData/toggleUserStatus', userData)
+        nextTick(() => {
+          const updatedData = store.state.userData.filteredData
+
+          filterData.value = updatedData
+        })
         closeNavigationDrawer()
       }
       else {
@@ -106,6 +111,11 @@ const swal = () => {
         }
 
         store.dispatch('userData/addUserData', userData)
+        nextTick(() => {
+          const updatedData = store.state.userData.filteredData
+
+          filterData.value = updatedData
+        })
         closeNavigationDrawer()
       }
     }

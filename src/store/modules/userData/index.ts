@@ -743,24 +743,28 @@ const state = {
   filteredData: users,
 }
 
+const getters = {
+  filteredData: state => state.users,
+}
+
 const mutations = {
   addUser(_, newUser) {
     const lastUserId = Math.max(...state.users.map(user => user.id))
 
     newUser.id = lastUserId + 1
     state.users.push(newUser)
-    state.filteredData.value = [...state.users]
+    state.filteredData = [...state.users]
   },
   deleteUser(_, userId) {
     state.users = state.users.filter(user => user.id !== userId)
-    state.filteredData.value = [...state.users]
+    state.filteredData = [...state.users]
   },
 
   updateUser(_, updatedUser) {
     const index = state.users.findIndex(user => user.id === updatedUser.id)
     if (index !== -1)
       state.users[index] = updatedUser
-    state.filteredData.value = [...state.users]
+    state.filteredData = [...state.users]
   },
 
   setFilteredProducts(_, transformedData) {
@@ -808,5 +812,6 @@ export default {
   state,
   mutations,
   actions,
+  getters,
 
 }

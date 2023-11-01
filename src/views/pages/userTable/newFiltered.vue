@@ -17,6 +17,9 @@ const updateFilter = () => {
   }))
 
   store.dispatch('userData/filterData', transformedData)
+  nextTick(() => {
+    const updatedData = store.state.userData.filteredData
+  })
 }
 </script>
 
