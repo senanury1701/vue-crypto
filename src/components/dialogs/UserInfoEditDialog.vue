@@ -28,8 +28,9 @@ interface Props {
 }
 
 interface Emit {
-  (e: 'submit', value: UserData): void
   (e: 'update:isDialogVisible', val: boolean): void
+  (e: 'updatedData', val: UserData): void
+
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -57,16 +58,15 @@ const store = useStore()
 
 console.log(props.userData)
 
-const userData = ref<UserData>(structuredClone(toRaw(props.userData)))
+const userData = ref<UserData>(props.userData)
+const tempData = ref<UserData>({ ...props.userData })
 
-const tempData = userData
-
-watch(props, () => {
-  userData.value = structuredClone(toRaw(props.userData))
+watch(() => props.userData, newUserData => {
+  tempData.value = { ...newUserData }
 })
 
 const onFormReset = () => {
-  userData.value = structuredClone(toRaw(props.userData))
+  userData.value = (props.userData)
 
   emit('update:isDialogVisible', false)
 }
@@ -78,7 +78,8 @@ const dialogVisibleUpdate = (val: boolean) => {
 const onSubmit = () => {
   refForm.value?.validate().then(({ valid: isValid }) => {
     if (isValid) {
-      const data = {
+      const updatedData = {
+        id: tempData.value.id,
         name: tempData.value.name,
         position: tempData.value.position,
         office: tempData.value.office,
@@ -93,10 +94,13 @@ const onSubmit = () => {
         language: tempData.value.language,
       }
 
-      store.dispatch('userData/toggleUserStatus', data)
+      nextTick(() => {
+        store.dispatch('userData/toggleUserStatus', updatedData)
+
+        emit('updatedData', updatedData)
+      })
       Swal.fire('Guncellendi')
       emit('update:isDialogVisible', false)
-      emit('submit', tempData.value)
     }
   })
 }

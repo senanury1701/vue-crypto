@@ -12,7 +12,7 @@ const exchangeRates = ref<any>({
 })
 
 const isLoading = ref()
-const url = 'ws://crypto.yahyabatulu.com:571/ws/exchange-rates'
+const url = 'ws://localhost/ws/exchange-rates'
 const ws = new WebSocket(url)
 
 let updateInterval = 0

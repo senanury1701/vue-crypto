@@ -3,11 +3,14 @@ import { useStore } from 'vuex'
 import UserProfileHeader from '@/views/pages/profile/user-profile/UserProfileHeader.vue'
 import ProfilTabs from '@/views/pages/profile/profile-tab/DemoTabUser.vue'
 
-const data = ref()
 const store = useStore()
 
+const data = ref(store.state.userState.user)
+
+console.log(data)
+
 onMounted(async () => {
-  await store.dispatch('loginUser')
+  await store.dispatch('userDatate/loginUser')
   data.value = store.state.userState.user
 })
 </script>

@@ -58,7 +58,7 @@ const filter: FilterItem[] = [
     <NewFilterData
       class="mt-5"
       :filter="filter"
-      @dataChanged="handleDataChange"
+      @data-changed="handleDataChange"
     />
     <DataTable :shared-data="sharedData" />
   </div>

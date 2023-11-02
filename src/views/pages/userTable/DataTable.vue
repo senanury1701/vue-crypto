@@ -231,7 +231,7 @@ watch(sharedData, newData => {
     <AddNewUserDrawer
       v-model:isDrawerOpen="isAddNewUserDrawerVisible"
       :user-edit-data="userEditData"
-      @dataChanged="handleDataChange"
+      @data-changed="handleDataChange"
     />
   </div>
 </template>

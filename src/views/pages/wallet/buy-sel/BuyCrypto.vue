@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { defineProps, inject, ref } from 'vue'
+import Swal from 'sweetalert2'
 import axios from '@/configs/axiosConfig'
 import type { ballanceData } from '@/views/demos/components/tabs/BuySellTabs.vue'
 
@@ -56,11 +57,14 @@ const buyCrypto = () => {
       },
     })
       .then(response => {
-        console.log('Buy işlemi başarılı:', response.data)
+        if (response.data.status)
+          Swal.fire('Buy işlemi başarıli', '', 'success')
+        else
+          Swal.fire('Buy işlemi başarısiz', '', 'error')
         updateBalance()
       })
       .catch(error => {
-        console.error('Buy işlemi hata:', error)
+        Swal.fire('islem basarisiz', '', error)
       })
   }
   else {
@@ -70,11 +74,14 @@ const buyCrypto = () => {
       },
     })
       .then(response => {
-        console.log('Buy işlemi başarılı:', response.data)
+        if (response.data.status)
+          console.log('Buy işlemi başarılı:', response.data)
+        else
+          Swal.fire('Buy işlemi başarısiz', '', 'error')
         updateBalance()
       })
       .catch(error => {
-        console.error('Buy işlemi hata:', error)
+        Swal.fire('islem basarisiz', '', error)
       })
   }
 }

@@ -273,6 +273,7 @@ const handleDrawerModelValueUpdate = (val: boolean) => {
                     {{ userEditData ? 'duzenle' : 'ekle' }}
                   </VBtn>
                   <VBtn
+                    v-if="!userEditData"
                     type="reset"
                     variant="outlined"
                     color="secondary"

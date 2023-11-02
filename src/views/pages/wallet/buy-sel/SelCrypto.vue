@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { inject, ref } from 'vue'
+import Swal from 'sweetalert2'
 import axios from '@/configs/axiosConfig'
 import type { ballanceData } from '@/views/pages/wallet/tabs/BuySellTabs.vue'
 
@@ -63,8 +64,10 @@ const sellCrypto = () => {
   })
     .then(response => {
       console.log('SEl işlemi başarılı:', response.data)
-      if (response.data.status === false)
-        alert('bakiye yetersiz')
+      if (response.data.status)
+        Swal.fire('Buy işlemi başarıli', '', 'success')
+      else
+        Swal.fire('Buy işlemi başarısiz', '', 'error')
 
       updateBalance()
     })

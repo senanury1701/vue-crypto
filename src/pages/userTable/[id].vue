@@ -24,14 +24,15 @@ const userId = parseInt(route.params.id.toString())
 const isUserInfoEditDialogVisible = ref(false)
 const userData = ref<Props>()
 
+const updatedData = (updatedUserData: Props) => {
+  userData.value = updatedUserData
+}
+
 onMounted(async () => {
   try {
     const user = await store.dispatch('userData/getUser', userId)
     if (user)
-
       userData.value = user
-
-    else console.log('Kullanıcı bulunamadı.')
   }
   catch (error) {
     console.error('Kullanıcı getirme hatası:', error)
@@ -190,6 +191,7 @@ onMounted(async () => {
     <UserInfoEditDialog
       v-model:isDialogVisible="isUserInfoEditDialogVisible"
       :user-data="userData"
+      @updated-data="updatedData"
     />
   </div>
 </template>

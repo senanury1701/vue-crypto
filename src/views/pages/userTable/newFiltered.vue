@@ -30,7 +30,6 @@ const updateFilter = () => {
 
 <template>
   <div>
-    <VCard>{{ selectedFilters }}</VCard>
     <VCard
       title="Search Filters"
       class="mb-6"

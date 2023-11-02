@@ -44,6 +44,13 @@ const handleButtonClick = (crypto: string) => {
   selectedCrypto.value = crypto
   console.log(selectedCrypto.value)
 }
+
+/*  <div v-if="cryptoRates.length < 1">
+      <VProgressCircular
+        indeterminate
+        color="primary"
+      />
+    </div> */
 </script>
 
 <template>
@@ -117,6 +124,7 @@ const handleButtonClick = (crypto: string) => {
               Buy
             </VBtn>
           </template>
+
           <BuyBtn
             v-model:is-dialog-visible="isDialogVisible"
             :selected-crypto="selectedCrypto"

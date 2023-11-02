@@ -27,7 +27,6 @@ const actions = {
         },
       })
 
-      // İsteğin yanıtı boş değilse "data" özelliğini kullanarak kullanıcıyı ayarla
       if (response && response.data)
         commit('setUser', response.data)
     }
@@ -38,6 +37,7 @@ const actions = {
 }
 
 const store = createStore({
+  namespaced: true,
   state,
   mutations,
   actions,
