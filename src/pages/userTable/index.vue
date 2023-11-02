@@ -13,6 +13,14 @@ interface FilterItem {
   }
 }
 
+const sharedData = ref()
+
+watchEffect(() => sharedData)
+
+const handleDataChange = (newData: object) => {
+  sharedData.value = newData
+}
+
 const filter: FilterItem[] = [
   {
     type: 'VAutocomplete',
@@ -50,7 +58,8 @@ const filter: FilterItem[] = [
     <NewFilterData
       class="mt-5"
       :filter="filter"
+      @dataChanged="handleDataChange"
     />
-    <DataTable />
+    <DataTable :shared-data="sharedData" />
   </div>
 </template>

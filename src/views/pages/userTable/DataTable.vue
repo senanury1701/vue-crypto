@@ -4,6 +4,11 @@ import { useStore } from 'vuex'
 import Swal from 'sweetalert2'
 import AddNewUserDrawer from './DataPanel.vue'
 
+const props = defineProps({
+  sharedData: Object,
+})
+
+const { sharedData } = toRefs(props)
 const store = useStore()
 const filterData = ref(store.state.userData.filteredData)
 const search = ref('')
@@ -11,8 +16,20 @@ const isAddNewUserDrawerVisible = ref(false)
 const userEditData = ref()
 const selectedRows = ref<string[]>([])
 
+watchEffect(() => filterData)
+
+function handleDataChange(newData: object) {
+  filterData.value = newData
+  console.log('gekdu')
+}
+
 const toggleStatus = (user: object) => {
   store.dispatch('userData/toggleUserStatus', user)
+  nextTick(() => {
+    const updatedData = store.state.userData.filteredData
+
+    filterData.value = updatedData
+  })
 }
 
 const deleteItem = (userId: number) => {
@@ -82,6 +99,12 @@ const headers = [
   { title: 'Status', key: 'status' },
   { title: 'Actions', key: 'actions' },
 ]
+
+watch(sharedData, newData => {
+  const updatedData = store.state.userData.filteredData
+
+  filterData.value = updatedData
+})
 </script>
 
 <template>
@@ -208,6 +231,7 @@ const headers = [
     <AddNewUserDrawer
       v-model:isDrawerOpen="isAddNewUserDrawerVisible"
       :user-edit-data="userEditData"
+      @dataChanged="handleDataChange"
     />
   </div>
 </template>

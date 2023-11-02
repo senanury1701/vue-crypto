@@ -10,6 +10,7 @@ import '@styles/styles.scss'
 import { createPinia } from 'pinia'
 import { createApp } from 'vue'
 import store from './store/index'
+import DataTable from '@/views/pages/userTable/DataTable.vue'
 
 loadFonts()
 
@@ -22,6 +23,7 @@ app.use(createPinia())
 app.use(router)
 app.use(layoutsPlugin)
 app.use(store)
+app.component('DataTable', DataTable)
 
 // Mount vue app
 app.mount('#app')

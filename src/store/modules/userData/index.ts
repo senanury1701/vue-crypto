@@ -743,10 +743,6 @@ const state = {
   filteredData: users,
 }
 
-const getters = {
-  filteredData: state => state.users,
-}
-
 const mutations = {
   addUser(_, newUser) {
     const lastUserId = Math.max(...state.users.map(user => user.id))
@@ -812,6 +808,5 @@ export default {
   state,
   mutations,
   actions,
-  getters,
 
 }

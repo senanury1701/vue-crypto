@@ -1,14 +1,16 @@
 <script setup lang="ts">
-import { defineProps, ref } from 'vue'
+import { defineEmits, defineProps, ref } from 'vue'
 import { useStore } from 'vuex'
 
 const props = defineProps({
   filter: Object,
 })
 
+const emit = defineEmits(['dataChanged'])
 const store = useStore()
 const filters = ref(props.filter)
 const selectedFilters = ref<Record<string, string >>({})
+const sharedData = ref()
 
 const updateFilter = () => {
   const transformedData = Object.keys(selectedFilters.value).map(key => ({
@@ -19,6 +21,9 @@ const updateFilter = () => {
   store.dispatch('userData/filterData', transformedData)
   nextTick(() => {
     const updatedData = store.state.userData.filteredData
+
+    sharedData.value = updatedData
+    emit('dataChanged', sharedData)
   })
 }
 </script>

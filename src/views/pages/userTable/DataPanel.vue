@@ -20,6 +20,7 @@ const age = ref()
 const gender = ref()
 const salary = ref()
 const status = ref()
+const updateData = ref()
 
 watch(userEditData, newValue => {
   if (newValue) {
@@ -47,6 +48,8 @@ const genderItem = [
 
 interface Emit {
   (e: 'update:isDrawerOpen', value: boolean): void
+  (e: 'dataChanged', value: object): void
+
 }
 
 interface Props {
@@ -92,7 +95,9 @@ const swal = () => {
         nextTick(() => {
           const updatedData = store.state.userData.filteredData
 
-          filterData.value = updatedData
+          updateData.value = updatedData
+          emit('dataChanged', updateData.value)
+          console.log('datapanel')
         })
         closeNavigationDrawer()
       }
@@ -114,7 +119,8 @@ const swal = () => {
         nextTick(() => {
           const updatedData = store.state.userData.filteredData
 
-          filterData.value = updatedData
+          updateData.value = updatedData
+          emit('dataChanged', updateData.value)
         })
         closeNavigationDrawer()
       }
