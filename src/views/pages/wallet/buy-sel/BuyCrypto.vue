@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineProps, inject, ref } from 'vue'
+import { inject, ref } from 'vue'
 import Swal from 'sweetalert2'
 import axios from '@/configs/axiosConfig'
 import type { ballanceData } from '@/views/demos/components/tabs/BuySellTabs.vue'

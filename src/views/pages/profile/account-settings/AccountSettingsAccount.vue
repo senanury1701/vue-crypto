@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { defineProps, ref } from 'vue'
+import { ref } from 'vue'
 import avatar1 from '@images/avatars/avatar-1.png'
 import type { UserData } from '@/pages/UserProfil.vue'
 

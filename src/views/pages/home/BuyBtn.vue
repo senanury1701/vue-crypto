@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineProps, ref } from 'vue'
+import { ref } from 'vue'
 import { boolean } from 'yup'
 import axios from '@/configs/axiosConfig'
 

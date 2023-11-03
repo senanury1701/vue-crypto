@@ -1,11 +1,14 @@
 <script setup lang="ts">
+import Swal from 'sweetalert2'
 import { VDataTable } from 'vuetify/labs/VDataTable'
 import { useStore } from 'vuex'
-import Swal from 'sweetalert2'
 import AddNewUserDrawer from './DataPanel.vue'
 
 const props = defineProps({
-  sharedData: Object,
+  sharedData: {
+    type: Object,
+    default: () => ({}),
+  },
 })
 
 const { sharedData } = toRefs(props)
@@ -100,8 +103,8 @@ const headers = [
   { title: 'Actions', key: 'actions' },
 ]
 
-watch(sharedData, newData => {
-  const updatedData = store.state.userData.filteredData
+watch(sharedData, newShared => {
+  const updatedData = newShared
 
   filterData.value = updatedData
 })

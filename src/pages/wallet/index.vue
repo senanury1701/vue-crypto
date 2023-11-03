@@ -37,7 +37,7 @@ onMounted(() => {
       <VCol>
         <VCard class="text-center wallet">
           <VTitle>
-            <h1>Wallet</h1>
+            Wallet
           </VTitle>
           <VText>
             <h2>${{ userBallance?.USD.toFixed(2) || "0" }}</h2>

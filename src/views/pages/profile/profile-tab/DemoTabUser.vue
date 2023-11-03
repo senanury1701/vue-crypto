@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { defineProps, ref } from 'vue'
+import { ref } from 'vue'
 import Account from '@/views/pages/profile/account-settings/AccountSettingsAccount.vue'
 import Security from '@/views/pages/profile/account-settings/AccountSettingsSecurity.vue'
 import WalletBilling from '@/views/pages/profile/account-settings/AccountSettingsBillingAndPlans.vue'

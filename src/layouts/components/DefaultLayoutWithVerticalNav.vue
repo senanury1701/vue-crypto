@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import AddNewUserDrawer from '@/views/pages/userTable/DataPanel.vue'
 import navItems from '@/navigation/vertical'
 import { useThemeConfig } from '@core/composable/useThemeConfig'
 
@@ -72,10 +71,12 @@ const isAddNewUserDrawerVisible = ref(false)
     <template #footer>
       <Footer />
     </template>
+  <!--
     <AddNewUserDrawer
-      v-model:isDrawerOpen="isAddNewUserDrawerVisible"
-      @user-data="addNewUser"
+    v-model:isDrawerOpen="isAddNewUserDrawerVisible"
+    @user-data="addNewUser"
     />
+  -->
     <!-- 👉 Customizer -->
     <!-- <TheCustomizer /> -->
   </VerticalNavLayout>
