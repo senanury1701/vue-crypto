@@ -11,7 +11,6 @@ const props = defineProps({
   },
 })
 
-const { sharedData } = toRefs(props)
 const store = useStore()
 const filterData = ref(store.state.userData.filteredData)
 const search = ref('')
@@ -20,10 +19,9 @@ const userEditData = ref()
 const selectedRows = ref<string[]>([])
 
 watchEffect(() => filterData)
-
+watchEffect(() => props.sharedData)
 function handleDataChange(newData: object) {
   filterData.value = newData
-  console.log('gekdu')
 }
 
 const toggleStatus = (user: object) => {
@@ -103,9 +101,10 @@ const headers = [
   { title: 'Actions', key: 'actions' },
 ]
 
-watch(sharedData, newShared => {
+watch(props.sharedData, newShared => {
   const updatedData = newShared
 
+  console.log(props.sharedData.value)
   filterData.value = updatedData
 })
 </script>

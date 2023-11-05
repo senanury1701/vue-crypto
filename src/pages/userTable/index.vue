@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { offices, positions } from '@/views/pages/userTable/filterData'
-import DataTable from '@/views/pages/userTable/DataTable.vue'
-import NewFilterData from '@/views/pages/userTable/newFiltered.vue'
+import DataTable from '@/views/pages/userTable/DataTable.vue';
+import { offices, positions } from '@/views/pages/userTable/filterData';
+import NewFilterData from '@/views/pages/userTable/newFiltered.vue';
 
 interface FilterItem {
   type: string
