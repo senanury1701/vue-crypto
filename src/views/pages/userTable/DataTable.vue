@@ -102,6 +102,8 @@ const headers = [
 ]
 
 watch(props.sharedData, newShared => {
+  console.log(newShared)
+
   const updatedData = newShared
 
   console.log(props.sharedData.value)
