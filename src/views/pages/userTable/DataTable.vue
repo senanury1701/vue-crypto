@@ -19,7 +19,13 @@ const userEditData = ref()
 const selectedRows = ref<string[]>([])
 
 watchEffect(() => filterData)
-watchEffect(() => props.sharedData)
+watchEffect(() => console.log(props.sharedData.value))
+watch(() => props.sharedData.value, newShared => {
+  const updatedData = newShared
+
+  filterData.value = updatedData
+})
+
 function handleDataChange(newData: object) {
   filterData.value = newData
 }
@@ -100,15 +106,6 @@ const headers = [
   { title: 'Status', key: 'status' },
   { title: 'Actions', key: 'actions' },
 ]
-
-watch(props.sharedData, newShared => {
-  console.log(newShared)
-
-  const updatedData = newShared
-
-  console.log(props.sharedData.value)
-  filterData.value = updatedData
-})
 </script>
 
 <template>

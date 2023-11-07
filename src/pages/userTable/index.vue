@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import DataTable from '@/views/pages/userTable/DataTable.vue';
-import { offices, positions } from '@/views/pages/userTable/filterData';
-import NewFilterData from '@/views/pages/userTable/newFiltered.vue';
+import DataTable from '@/views/pages/userTable/DataTable.vue'
+import { offices, positions } from '@/views/pages/userTable/filterData'
+import NewFilterData from '@/views/pages/userTable/newFiltered.vue'
 
 interface FilterItem {
   type: string
@@ -19,6 +19,7 @@ watchEffect(() => sharedData)
 
 const handleDataChange = (newData: object) => {
   sharedData.value = newData
+  console.log('index.vue')
 }
 
 const filter: FilterItem[] = [
